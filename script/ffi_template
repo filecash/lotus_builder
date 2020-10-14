@@ -1,0 +1,19 @@
+#!/bin/bash
+
+main() {
+    set_api_path $1 $2 "${3}"
+}
+
+
+set_api_path() {
+    local __src=$1
+    local __dst=$2
+    local __1="${3}"
+
+    cd $__dst
+    sed -e 's|${FILE_API_PATH}|'"${__1}"'|g' $__src > Cargo.toml
+    rm -rf Cargo.lock
+    cd -
+}
+
+main "$@"

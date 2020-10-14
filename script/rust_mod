@@ -1,0 +1,25 @@
+#!/bin/bash
+
+main() {
+    modify_rust_toml $1 $2 "${3}" "${4}"
+}
+
+
+modify_rust_toml() {
+    local _option=$1
+    local __dst=$2
+    local __1="${3}"
+    local __2="${4}"
+
+    cd $__dst
+    if [ $_option = "rm" ]; then
+        sed -e '/'$__1'/d' Cargo.toml > Cargo.toml.tmp
+        cp -f Cargo.toml.tmp Cargo.toml
+        rm -f Cargo.toml.tmp
+    elif [ $_option = "replace" ]; then
+        sed -i 's|'"${__1}"'|'"${__2}"'|g' Cargo.toml
+    fi
+    cd -
+}
+
+main "$@"

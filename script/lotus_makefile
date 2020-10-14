@@ -1,0 +1,32 @@
+#!/bin/bash
+
+main() {
+    modify_makefile $1 $2 "${3}" "${4}"
+}
+
+
+modify_makefile() {
+    local _option=$1
+    local __dst=$2
+    local __1="${3}"
+    local __2="${4}"
+
+    if [ $_option = "rm" ]; then  
+        cd $__dst
+        sed -i '/'$__1'/d' Makefile > Makefile.tmp
+        cp -f Makefile.tmp Makefile
+        rm -f Makefile.tmp
+        cd -
+    elif [ $_option = "replace" ]; then
+        cd $__dst
+        sed -i 's/'"${__1}"'/'"${__2}"'/g' Makefile
+        cd -
+    elif [ $_option = "template" ]; then
+        __src=$2
+        __dst=$3
+        echo "cp -rf "${__src}" "${__dst}/Makefile
+        cp -rf ${__src} ${__dst}/Makefile
+    fi    
+}
+
+main "$@"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+main() {
+    clone_and_checkout $1 $2 $3
+}
+
+
+clone_and_checkout() {
+    local __src_repo=$1
+    local __dst=$2
+    local __ckeckout=$3
+
+    git clone $__src_repo $__dst
+    cd $__dst
+    git checkout $__ckeckout
+    cd -
+}
+
+main "$@"
