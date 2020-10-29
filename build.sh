@@ -129,14 +129,14 @@ git_clone() {
     export https_proxy=
 
     # filecash/v0.7.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "bd88a567d6abe52fb8986a1411388da256489a92"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "aadfe5ec0abf8f74702a5b67f4094431802c10a6"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "ba88f0ca4db5f38c96edcaaeadb7fefca16157fd"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "cbf5f8b229847596a9223c79d5aac2d1b0e3ac2b"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors "6d82b36d8b89db6a62add1e96b715b1dff431ed0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors "c207fc25c5b55eba08d9e5630f062d416e1c5a01"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "803326afeaf27d6b827668447c270fce6ad4898d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "6bb49fe7c7924256914b431125259a919fa8c880"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellman "bf127c5c9bf7791235ce3ed72e5596fa897e5721"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "4bfffdd5e9a40854b975f4f8ee2f3be411b51b58"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "829f513be2b5dacc424ef6be1762c39c7d81b420"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/chain-validation.git" chain-validation "40c22fe26eefba10b7bbb24bf8e742b2a0e2478c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v0.6.0"
