@@ -10,8 +10,18 @@ clone_and_checkout() {
     local __dst=$2
     local __ckeckout=$3
 
-    git clone $__src_repo $__dst
-    cd $__dst
+    
+    
+    if [ ! -d $__dst ]
+    then
+      git clone $__src_repo $__dst
+      cd $__dst
+    else
+      cd $__dst
+      git clean -f
+      git fetch origin
+    fi
+    
     git checkout $__ckeckout
     cd -
 }
