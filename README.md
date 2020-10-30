@@ -1,6 +1,9 @@
 # lotus_builder
 
-## Instructions
-bash build.sh -a
+## Installation Compilation Environment
+bash env.sh
 
+
+## Compile Instructions
+bash build.sh -a
 
