@@ -21,6 +21,8 @@ check_env() {
     export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
     " >> /etc/profile
   fi
+  
+  source /etc/profile
 }
 
 check_go() {
