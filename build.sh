@@ -129,7 +129,7 @@ git_clone() {
     export https_proxy=
 
     # filecash/v0.7.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "9ab7d1b0d0686455d535dcdfe83ce5d6f64c699d"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "4aaddcb2dd06fd207bccf2cf04851b3d0d521b4d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "ba88f0ca4db5f38c96edcaaeadb7fefca16157fd"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "cbf5f8b229847596a9223c79d5aac2d1b0e3ac2b"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors "c02a06a184850c098cc3ef8d0ca8ccb9d8383aac"
