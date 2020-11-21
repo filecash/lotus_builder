@@ -22,7 +22,9 @@ FFI_TEMPLATE=${SCRIPT_PATH}/ffi_template
 
 
 ENV_LOG_DIR=$(cd `dirname $0`; pwd)
-source $ENV_LOG_DIR/env_proxy
+if [ -f $ENV_LOG_DIR/env_proxy ]; then
+  source $ENV_LOG_DIR/env_proxy
+fi
 # http_proxy https_proxy
 if [ -z $https_proxy ]; then
 
@@ -31,7 +33,7 @@ if [ -z $https_proxy ]; then
     #lotus_proxy
     while [ -z $lotus_proxy ]
     do
-      read -e -p '  please input lotus_proxy:' lotus_proxy
+      read -e -p '  please input https_proxy:' lotus_proxy
       if [ -z $lotus_proxy ]; then
         lotus_proxy=""
       fi
@@ -42,7 +44,9 @@ if [ -z $https_proxy ]; then
   done
   echo " "
 fi
-source $ENV_LOG_DIR/env_proxy
+if [ -f $ENV_LOG_DIR/env_proxy ]; then
+  source $ENV_LOG_DIR/env_proxy
+fi
 # tips
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
