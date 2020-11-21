@@ -20,6 +20,34 @@ LOTUS_MAKEFILE=${SCRIPT_PATH}/lotus_makefile
 RUST_MOD=${SCRIPT_PATH}/rust_mod
 FFI_TEMPLATE=${SCRIPT_PATH}/ffi_template
 
+
+ENV_LOG_DIR=$(cd `dirname $0`; pwd)
+source $ENV_LOG_DIR/env_proxy
+# http_proxy https_proxy
+if [ -z $https_proxy ]; then
+
+  while [ -z $lotus_proxy ]
+  do
+    #lotus_proxy
+    while [ -z $lotus_proxy ]
+    do
+      read -e -p '  please input lotus_proxy:' lotus_proxy
+      if [ -z $lotus_proxy ]; then
+        lotus_proxy=""
+      fi
+    done
+    #echo ' '
+    echo "export http_proxy=$lotus_proxy" >> $ENV_LOG_DIR/env_proxy
+    echo "export https_proxy=$lotus_proxy" >> $ENV_LOG_DIR/env_proxy
+  done
+  echo " "
+fi
+source $ENV_LOG_DIR/env_proxy
+# tips
+echo -e "\033[34m http_proxy=$http_proxy \033[0m"
+echo -e "\033[34m https_proxy=$https_proxy \033[0m"
+
+
 main() {
     while true; do
         case "${1}" in
@@ -125,13 +153,11 @@ clear() {
 }
 
 git_clone() {
-    export http_proxy=
-    export https_proxy=
 
     # filecash/v0.7.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "240564ac10514923908eb540e6786a1069b1412a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "df4235741a18cc4214fc7f080b783eeac78d85c7"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "ba88f0ca4db5f38c96edcaaeadb7fefca16157fd"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "cbf5f8b229847596a9223c79d5aac2d1b0e3ac2b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "4cf6e096b0a82eab42653fa29ea12e6b88c6e673"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors "c02a06a184850c098cc3ef8d0ca8ccb9d8383aac"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "803326afeaf27d6b827668447c270fce6ad4898d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "6bb49fe7c7924256914b431125259a919fa8c880"
