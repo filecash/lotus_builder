@@ -260,8 +260,6 @@ rust_mod() {
 }
 
 just_for_test() {
-    # source $CLONE_AND_CHECKOUT "https://dev.cqultra.com:8008/gitea/CST/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "yuncun/v4.0.4"
-
     # rust_mod
 
     build_lotus 2k
