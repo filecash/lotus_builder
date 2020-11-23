@@ -21,33 +21,25 @@ RUST_MOD=${SCRIPT_PATH}/rust_mod
 FFI_TEMPLATE=${SCRIPT_PATH}/ffi_template
 
 
+# http_proxy https_proxy
 ENV_LOG_DIR=$(cd `dirname $0`; pwd)
 if [ -f $ENV_LOG_DIR/env_proxy ]; then
   source $ENV_LOG_DIR/env_proxy
-fi
-# http_proxy https_proxy
-if [ -z $https_proxy ]; then
-
-  while [ -z $lotus_proxy ]
+else
+  while [ ! -f $ENV_LOG_DIR/env_proxy ]
   do
     #lotus_proxy
-    while [ -z $lotus_proxy ]
-    do
-      read -e -p '  please input https_proxy:' lotus_proxy
-      if [ -z $lotus_proxy ]; then
-        lotus_proxy=""
-      fi
-    done
+    read -e -p '  please input https_proxy:' lotus_proxy
     #echo ' '
     echo "export http_proxy=$lotus_proxy" >> $ENV_LOG_DIR/env_proxy
     echo "export https_proxy=$lotus_proxy" >> $ENV_LOG_DIR/env_proxy
   done
   echo " "
 fi
+# tips
 if [ -f $ENV_LOG_DIR/env_proxy ]; then
   source $ENV_LOG_DIR/env_proxy
 fi
-# tips
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
 
