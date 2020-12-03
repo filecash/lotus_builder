@@ -9,7 +9,7 @@ clone_and_checkout() {
     local __src_repo=$1
     local __dst=$2
     local __ckeckout=$3
-    
+
     echo -e "\033[34m $__dst \033[0m"
     
     if [ ! -d $__dst ]
@@ -24,7 +24,6 @@ clone_and_checkout() {
     
     git checkout $__ckeckout
     cd -
-    echo ""
 }
 
 main "$@"

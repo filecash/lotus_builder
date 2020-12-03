@@ -99,10 +99,15 @@ lotus-shed: $(BUILD_DEPS) DEPS_OPT
 .PHONY: lotus-shed
 BINS+=lotus-shed
 
+lotus-gateway: $(BUILD_DEPS) DEPS_OPT
+	rm -f lotus-gateway
+	go build $(GOFLAGS) -o lotus-gateway ./cmd/lotus-gateway
+.PHONY: lotus-gateway
+BINS+=lotus-gateway
+
 build: lotus lotus-miner lotus-worker
 	@[[ $$(type -P "lotus") ]] && echo "Caution: you have \
 an existing lotus binary in your PATH. This may cause problems if you don't run 'sudo make install'" || true
-
 .PHONY: build
 
 install: install-daemon install-miner install-worker
@@ -117,6 +122,10 @@ install-worker:
 	install -C ./lotus-worker /usr/local/bin/lotus-worker
 
 # TOOLS
+full: lotus lotus-miner lotus-worker lotus-seed lotus-shed lotus-bench lotus-fountain lotus-stats lotus-health
+	@[[ $$(type -P "lotus") ]] && echo "Caution: you have \
+an existing lotus binary in your PATH. This may cause problems if you don't run 'sudo make install'" || true
+.PHONY: full
 
 lotus-seed: $(BUILD_DEPS)
 	rm -f lotus-seed
@@ -128,8 +137,8 @@ BINS+=lotus-seed
 
 benchmarks:
 	go run github.com/whyrusleeping/bencher ./... > bench.json
-	@echo Submitting results
-	@curl -X POST 'http://benchmark.kittyhawk.wtf/benchmark' -d '@bench.json' -u "${benchmark_http_cred}"
+	#@echo Submitting results
+	#@curl -X POST 'http://benchmark.kittyhawk.wtf/benchmark' -d '@bench.json' -u "${benchmark_http_cred}"
 .PHONY: benchmarks
 
 lotus-pond: 2k

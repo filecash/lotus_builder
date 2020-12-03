@@ -1,6 +1,6 @@
 [package]
 name = "storage-proofs-porep"
-version = "5.1.1"
+version = "5.1.4"
 authors = ["dignifiedquire <me@dignifiedquire.com>"]
 description = "Proofs of replication"
 license = "MIT OR Apache-2.0"
@@ -20,14 +20,17 @@ sha2 = "0.9.1"
 rayon = "1.0.0"
 serde = { version = "1.0", features = ["derive"]}
 ff = { version = "0.2.3", package = "fff" }
-bellperson = {path = "../../../bellman"}
+# bellperson = "0.9.1"
+bellperson = { path = "../../../bellperson" }
 paired = { version = "0.20.0", features = ["serde"] }
-fil-sapling-crypto = {path = "../../../fil-sapling-crypto"}
+# fil-sapling-crypto = "0.6.3"
+fil-sapling-crypto = { path = "../../../sapling-crypto" }
 log = "0.4.7"
 pretty_assertions = "0.6.1"
 generic-array = "0.13.2"
 anyhow = "1.0.23"
-neptune = { version = "1.0.1", features = ["gpu"], path = "../../../neptune" }
+# neptune = { version = "1.0.1", features = ["gpu"] }
+neptune = { path = "../../../neptune", features = ["gpu"] }
 num_cpus = "1.10.1"
 hex = "0.4.2"
 bincode = "1.1.2"

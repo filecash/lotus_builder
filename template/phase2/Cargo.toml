@@ -16,7 +16,8 @@ num_cpus = "1"
 crossbeam = "0.7"
 ff = { version = "0.2.1", package = "fff" }
 blake2b_simd = "0.5.8"
-bellperson = {path = "../bellman"}
+# bellperson = "0.9.0"
+bellperson = { path = "../bellperson" }
 paired = "0.20.1"
 groupy = "0.3.0"
 rand_chacha = "0.2.1"

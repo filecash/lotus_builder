@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 set -o pipefail
 
@@ -19,7 +18,6 @@ LOTUS_GO_MOD=${SCRIPT_PATH}/lotus_go_mod
 LOTUS_MAKEFILE=${SCRIPT_PATH}/lotus_makefile
 RUST_MOD=${SCRIPT_PATH}/rust_mod
 FFI_TEMPLATE=${SCRIPT_PATH}/ffi_template
-
 
 # http_proxy https_proxy
 ENV_LOG_DIR=$(cd `dirname $0`; pwd)
@@ -43,7 +41,6 @@ fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
 
-
 main() {
     while true; do
         case "${1}" in
@@ -54,6 +51,8 @@ main() {
                 val_2k="${1}"
                 if [ $val_2k = "2k" ]; then
                     all_2k
+                elif [ $val_2k = "all" ]; then
+                    all_full
                 else
                     Usage
                 fi
@@ -103,7 +102,7 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options {-a,--all(2k) | --clone | -c,--config | -l,--clear | -t,--test | -h}"
+    echo "Usage:"${cmd}" options {-a,--all(2k,all) | --clone | -c,--config | -l,--clear | -t,--test | -h}"
 }
 
 all() {
@@ -118,23 +117,28 @@ all_2k() {
     build_lotus 2k
 }
 
+all_full() {
+    git_clone
+    config
+    build_lotus full
+}
+
 config() {
-    # git_clone
-    go_mod
-    m_makefile
-    rust_mod
-    sha512_rust_dep
+    cp -rf $ROOT_PATH/template/* $ROOT_PATH
 }
 
 clear() {
     rm -rf lotus
     rm -rf rust-filecoin-proofs-api
     rm -rf rust-fil-proofs
-    rm -rf specs-actors
     rm -rf filecoin-ffi
     rm -rf go-state-types
     rm -rf bellman
     rm -rf go-paramfetch
+    rm -rf sapling-crypto
+    rm -rf specs-actors-v0.9.12
+    rm -rf specs-actors-v2.0.1
+    rm -rf bellperson
 
     rm -rf chain-validation
     rm -rf go-fil-markets
@@ -149,7 +153,6 @@ clear() {
 }
 
 git_clone() {
-
     # filecash/v0.9.0
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "3db89efd6b3e0da85a158db6e7904e0f88c8ead4"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
@@ -170,93 +173,31 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/sapling-crypto.git" sapling-crypto "v0.6.3"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v1.1.1"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.8.0"
-
 }
 
-go_mod() {
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/chain-validation => ../chain-validation"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/go-fil-markets => ../go-fil-markets"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/go-padreader => ../go-padreader"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/specs-storage => ../specs-storage"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/statediff => ../statediff"
-    source $LOTUS_GO_MOD "add" lotus "replace  github.com/filecoin-project/go-state-types => ../go-state-types"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-    source $LOTUS_GO_MOD "add" lotus "replace github.com/filecoin-project/go-paramfetch => ../go-paramfetch"
-    source $LOTUS_GO_MOD "replace" lotus "replace\sgithub.com\/filecoin-project\/filecoin-ffi\s=>\s.\/extern\/filecoin-ffi" "replace github.com\/filecoin-project\/filecoin-ffi\ =>\ ..\/filecoin-ffi"
-    source $LOTUS_GO_MOD "replace" lotus "replace\sgithub.com\/filecoin-project\/test-vectors\s=>\s.\/extern\/test-vectors" "replace github.com\/filecoin-project\/test-vectors\ =>\ ..\/test-vectors"
+check_yesorno() {
+  unset yesorno
+  while [ -z $yesorno ]
+  do
+    echo " "
+    read -e -r -p "Are you sure set FFI_BUILD_FROM_SOURCE? [[Y]es/[N]o " input
+    case $input in
+      [yY][eE][sS]|[yY])
+        echo -e "\033[34m Yes \033[0m"
+        yesorno=1
+        ;;
 
-    source $LOTUS_GO_MOD "add" chain-validation "replace github.com/filecoin-project/specs-actors => ../specs-actors"
+      [nN][oO]|[nN])
+        echo -e "\033[34m No \033[0m"
+        yesorno=0
+        ;;
 
-    source $LOTUS_GO_MOD "add" go-fil-markets "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-
-    source $LOTUS_GO_MOD "add" go-fil-markets "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" go-padreader "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-
-    source $LOTUS_GO_MOD "add" go-padreader "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" specs-storage "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-
-    source $LOTUS_GO_MOD "add" specs-storage "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" specs-actors "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" filecoin-ffi "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-
-    source $LOTUS_GO_MOD "add" filecoin-ffi "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" test-vectors "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-
-    source $LOTUS_GO_MOD "add" test-vectors "replace github.com/filecoin-project/go-state-types => ../go-state-types"
-
-    source $LOTUS_GO_MOD "add" statediff "replace github.com/filecoin-project/specs-actors => ../specs-actors"
-    source $LOTUS_GO_MOD "replace" lotus "replace\sgithub.com\/filecoin-project\/filecoin-ffi\s=>\s.\/extern\/filecoin-ffi" "replace github.com\/filecoin-project\/filecoin-ffi\ =>\ ..\/filecoin-ffi"
-    source $LOTUS_GO_MOD "replace" statediff "replace\sgithub.com\/filecoin-project\/sector-storage\s=>\s.\/extern\/sector-storage" "replace github.com\/filecoin-project\/filecoin-ffi\ =>\ ..\/lotus\/extern\/sector-storage"
-
-    # modify sector-storage go.mod
-    # source $LOTUS_GO_MOD "replace" sector-storage "replace\sgithub.com\/filecoin-project\/filecoin-ffi\s=>\s.\/extern\/filecoin-ffi" "replace github.com\/filecoin-project\/filecoin-ffi\ =>\ ..\/filecoin-ffi"
-
-    # modify storage-fsm go.mod
-    # source $LOTUS_GO_MOD "add" storage-fsm "replace github.com/filecoin-project/sector-storage => ../sector-storage"
-    # source $LOTUS_GO_MOD "replace" storage-fsm "replace\sgithub.com\/filecoin-project\/filecoin-ffi\s=>\s.\/extern\/filecoin-ffi" "replace github.com\/filecoin-project\/filecoin-ffi\ =>\ ..\/filecoin-ffi"
-
-}
-
-sha512_rust_dep() {
-
-    #rust-fil-proofs
-    cp template/sha512_rust/fil-proofs-tooling/Cargo rust-fil-proofs/fil-proofs-tooling/Cargo.toml
-    cp template/sha512_rust/filecoin-proofs/Cargo rust-fil-proofs/filecoin-proofs/Cargo.toml
-    cp template/sha512_rust/storage-proofs/core/Cargo rust-fil-proofs/storage-proofs/core/Cargo.toml
-    cp template/sha512_rust/storage-proofs/porep/Cargo rust-fil-proofs/storage-proofs/porep/Cargo.toml
-    cp template/sha512_rust/storage-proofs/post/Cargo rust-fil-proofs/storage-proofs/post/Cargo.toml
-
-    #neptune
-    cp template/sha512_rust/neptune/Cargo neptune/Cargo.toml
-    #fil-sapling-crypto
-    cp template/sha512_rust/fil-sapling-crypto/Cargo fil-sapling-crypto/Cargo.toml
-    #phase2
-    cp template/sha512_rust/phase2/Cargo phase2/Cargo.toml
-}
-
-m_makefile() {
-    source $LOTUS_MAKEFILE "template" ${ROOT_PATH}/template/lotus/Makefile.template ${ROOT_PATH}/lotus
-    # source $LOTUS_MAKEFILE "replace" lotus "FFI_PATH:=extern\/filecoin-ffi\/" "FFI_PATH:=..\/filecoin-ffi\/"
-}
-
-rust_mod() {
-    # ffi
-    source $FFI_TEMPLATE ${ROOT_PATH}/template/ffi/rust.Cargo.toml.template filecoin-ffi/rust ${ROOT_PATH}"\/rust-filecoin-proofs-api"
-
-    # rust-filecoin-proofs-api
-    source $RUST_MOD "replace" rust-filecoin-proofs-api "filecoin-proofs-v1\s=\s{\spackage\s=\s\"filecoin-proofs\",\sversion\s=\s\"5.1.1\"\s}" "filecoin-proofs-v1 = { package = \"filecoin-proofs\", path = \""${ROOT_PATH}"\/rust-fil-proofs\/filecoin-proofs\" }"
-
-}
-
-just_for_test() {
-    # rust_mod
-
-    build_lotus 2k
+      *)
+        echo -e "\033[31m Invalid input... \033[0m"
+        ;;
+    esac
+  done
+# return $yesorno
 }
 
 build_lotus() {
@@ -264,7 +205,24 @@ build_lotus() {
     make clean
     cd -
 
-    _FFI_BUILD_FROM_SOURCE=1
+    check_yesorno
+    if [ $yesorno -eq 1 ]; then
+       _FFI_BUILD_FROM_SOURCE=1
+    else
+       _FFI_BUILD_FROM_SOURCE=0
+    fi
+    
+    set +e
+    result=$(grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
+    if [[ "$result" != "" ]] ; then
+       arch=intel
+       export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
+       export RUSTFLAGS="-C target-cpu=native -A dead_code"
+    else
+       arch=amd
+    fi
+    set -e
+    
     cd lotus
     make clean
     if [ $_FFI_BUILD_FROM_SOURCE -eq 1 ]; then
@@ -279,4 +237,4 @@ build_lotus() {
 }
 
 main "$@"
-exit
+
