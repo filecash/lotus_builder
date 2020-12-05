@@ -122,10 +122,17 @@ install-worker:
 	install -C ./lotus-worker /usr/local/bin/lotus-worker
 
 # TOOLS
-full: lotus lotus-miner lotus-worker lotus-seed lotus-shed lotus-bench lotus-fountain lotus-stats lotus-health
+full: lotus lotus-miner lotus-worker lotus-checker lotus-seed lotus-shed lotus-bench lotus-fountain lotus-stats lotus-health
 	@[[ $$(type -P "lotus") ]] && echo "Caution: you have \
 an existing lotus binary in your PATH. This may cause problems if you don't run 'sudo make install'" || true
 .PHONY: full
+
+lotus-checker: $(BUILD_DEPS) DEPS_OPT
+	rm -f lotus-checker
+	go build $(GOFLAGS) -o lotus-checker ./cmd/sector-checker
+	go run github.com/GeertJohan/go.rice/rice append --exec lotus-checker -i ./build
+.PHONY: lotus-checker
+BINS+=lotus-checker
 
 lotus-seed: $(BUILD_DEPS)
 	rm -f lotus-seed
