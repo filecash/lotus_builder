@@ -154,11 +154,11 @@ clear() {
 
 git_clone() {
     # filecash/v0.9.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "2be429cff808ae21207785b8f7bc21f794e2852e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "ce38efaa34e88234d60c1ddd27c3c3bc34610a76"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "c8cfc7d2868ffbf05fb0dd0a7c2d6e68b2a06702"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "2e5925f8069e5cff89233cbbb5b7817cb2a9fac8"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.0.1 "44acc9427990c392d6c6838d7d94bc74fcbdac9d"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "ecaaed0891e1428f14f3403f959fed8834025e2a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.0.1 "ae108edb1eab6677c2818275b6f2ba5ed06c7f01"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "d47d97b2822c3dc190f8d2359a49410fef1ff5e8"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "046a62e50106d493dd110de078795c3d7f3d0d8e"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "54854fa048ec508ebbdc7c06aa4360602612819b"
