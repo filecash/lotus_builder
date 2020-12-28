@@ -10,7 +10,7 @@ require (
 	golang.org/x/sys v0.0.0-20190826190057-c7b8b68b1456 // indirect
 )
 
-replace github.com/filecoin-project/specs-actors => ../specs-actors-v0.9.12
+replace github.com/filecoin-project/specs-actors => ../specs-actors-v0.9.13
 
 replace github.com/filecoin-project/go-state-types => ../go-state-types
 

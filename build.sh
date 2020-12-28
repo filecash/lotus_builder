@@ -136,8 +136,8 @@ clear() {
     rm -rf bellman
     rm -rf go-paramfetch
     rm -rf sapling-crypto
-    rm -rf specs-actors-v0.9.12
-    rm -rf specs-actors-v2.0.1
+    rm -rf specs-actors-v0.9.13
+    rm -rf specs-actors-v2.3.2
     rm -rf bellperson
 
     rm -rf chain-validation
@@ -154,25 +154,46 @@ clear() {
 
 git_clone() {
     # filecash/v0.9.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "467d6e1448d0a91a2e2d7159f37a2164b519d79e"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "c8cfc7d2868ffbf05fb0dd0a7c2d6e68b2a06702"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "2e5925f8069e5cff89233cbbb5b7817cb2a9fac8"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.0.1 "44acc9427990c392d6c6838d7d94bc74fcbdac9d"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "d47d97b2822c3dc190f8d2359a49410fef1ff5e8"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "046a62e50106d493dd110de078795c3d7f3d0d8e"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "54854fa048ec508ebbdc7c06aa4360602612819b"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "829f513be2b5dacc424ef6be1762c39c7d81b420"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "467d6e1448d0a91a2e2d7159f37a2164b519d79e"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "c8cfc7d2868ffbf05fb0dd0a7c2d6e68b2a06702"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "2e5925f8069e5cff89233cbbb5b7817cb2a9fac8"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.0.1 "44acc9427990c392d6c6838d7d94bc74fcbdac9d"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "d47d97b2822c3dc190f8d2359a49410fef1ff5e8"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "046a62e50106d493dd110de078795c3d7f3d0d8e"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "54854fa048ec508ebbdc7c06aa4360602612819b"
+#   source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "829f513be2b5dacc424ef6be1762c39c7d81b420"
+
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/chain-validation.git" chain-validation "40c22fe26eefba10b7bbb24bf8e742b2a0e2478c"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v0.7.0"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "ed2e5cd13796"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/statediff.git" statediff "v0.0.1"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/test-vectors" test-vectors "7471e2805fc3e459e4ee325775633e8ec76cb7c6"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/sapling-crypto.git" sapling-crypto "v0.6.3"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v1.1.1"
+#    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.8.0"
+
+    # filecash/v1.2.2
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "93d26195f15dfd452b973609897a72aeb68c310b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "1d9cb3e8ff53f51f9318fc57e5d00bc79bdc0128"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "1e2ccacdb4c706a96b11878c67681096e133d30e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "9049e4c9b320a611349b9bb6d3b9287523f9e3d8"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "7f44654d2f07d08178f2aa034e5354db49656edf"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "e195950ba98adb8ce362030356bf4a3809b7ec77"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "3e0f0afdc2610811a1ccebea1b2ce31c5a3d121e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "c8033295a1fc1d6b8f79897993e6de66c571d0d7"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "ea8ed67d4b53bdc668c83423e5be83ae4b625796"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/chain-validation.git" chain-validation "40c22fe26eefba10b7bbb24bf8e742b2a0e2478c"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v0.7.0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "ed2e5cd13796"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "5188d9774506"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/statediff.git" statediff "v0.0.1"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/test-vectors" test-vectors "7471e2805fc3e459e4ee325775633e8ec76cb7c6"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/sapling-crypto.git" sapling-crypto "v0.6.3"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v1.1.1"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.8.0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/test-vectors" test-vectors "d9a75a7873aee0db28b87e3970d2ea16a2f37c6a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v2.2.0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"
+
 }
 
 check_yesorno() {
