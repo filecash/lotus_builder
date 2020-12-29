@@ -7,15 +7,6 @@ FFI_PATH:=../filecoin-ffi/
 FFI_DEPS:=.install-filcrypto
 FFI_DEPS:=$(addprefix $(FFI_PATH),$(FFI_DEPS))
 
-DEPS_OPT:
-	cp -rf ../filecoin-ffi/filcrypto.pc ./extern/filecoin-ffi
-	cp -rf ../filecoin-ffi/filcrypto.h ./extern/filecoin-ffi
-	cp -rf ../filecoin-ffi/libfilcrypto.a ./extern/filecoin-ffi
-
-deps: $(BUILD_DEPS)
-
-.PHONY: deps
-
 $(FFI_DEPS): .filecoin-build ;
 
 .filecoin-build: $(FFI_PATH)
@@ -26,17 +17,8 @@ $(FFI_DEPS): .filecoin-build ;
 	git submodule update --init --recursive
 	@touch $@
 
-pieceio: .update-modules .filecoin-build DEPS_OPT
-	go build ./pieceio
-.PHONY: pieceio
-SUBMODULES+=pieceio
-
-filestore: DEPS_OPT
-	go build ./filestore
-.PHONY: filestore
-SUBMODULES+=filestore
-
-build: $(SUBMODULES)
+build: .filecoin-build .update-modules
+	go build ./...
 
 test: build
 	gotestsum -- -coverprofile=coverage.txt -timeout 5m ./...

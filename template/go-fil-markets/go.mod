@@ -53,4 +53,3 @@ replace github.com/filecoin-project/filecoin-ffi => ../filecoin-ffi
 replace github.com/filecoin-project/specs-actors => ../specs-actors-v0.9.13
 
 replace github.com/filecoin-project/go-state-types => ../go-state-types
-

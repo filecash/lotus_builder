@@ -10,4 +10,3 @@ require (
 replace github.com/filecoin-project/filecoin-ffi => ../filecoin-ffi
 
 replace github.com/filecoin-project/go-state-types => ../go-state-types
-

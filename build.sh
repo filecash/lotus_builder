@@ -124,7 +124,10 @@ all_full() {
 }
 
 config() {
+    echo ""
+    echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
     cp -rf $ROOT_PATH/template/* $ROOT_PATH
+    echo ""
 }
 
 clear() {

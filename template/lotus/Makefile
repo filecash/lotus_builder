@@ -5,10 +5,10 @@ all: build
 
 unexport GOFLAGS
 
-GOVERSION:=$(shell go version | cut -d' ' -f 3 | cut -d. -f 2)
-ifeq ($(shell expr $(GOVERSION) \< 14), 1)
-$(warning Your Golang version is go 1.$(GOVERSION))
-$(error Update Golang to version $(shell grep '^go' go.mod))
+GOVERSION:=$(shell go version | cut -d' ' -f 3 | sed 's/^go//' | awk -F. '{printf "%d%03d%03d", $$1, $$2, $$3}')
+ifeq ($(shell expr $(GOVERSION) \< 1015005), 1)
+$(warning Your Golang version is go$(shell expr $(GOVERSION) / 1000000).$(shell expr $(GOVERSION) % 1000000 / 1000).$(shell expr $(GOVERSION) % 1000))
+$(error Update Golang to version to at least 1.15.5)
 endif
 
 # git modules that need to be loaded
@@ -17,10 +17,7 @@ MODULES:=
 CLEAN:=
 BINS:=
 
-VENDOR:=$(shell grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
-MODEL:=$(shell if [[ "$(VENDOR)" != "" ]] ; then echo 'intel' ; else echo 'amd'; fi)
-$(warning  VENDOR=$(VENDOR) MODEL=$(MODEL))
-ldflags=-X=github.com/filecoin-project/lotus/build.CurrentCommit=+git.$(subst -,.,$(shell git describe --always --match=NeVeRmAtCh 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))+$(MODEL)+$(shell date +"%Y%m%d_%H%M%S")
+ldflags=-X=github.com/filecoin-project/lotus/build.CurrentCommit=+git.$(subst -,.,$(shell git describe --always --match=NeVeRmAtCh --dirty 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))
 ifneq ($(strip $(LDFLAGS)),)
 	ldflags+=-extldflags=$(LDFLAGS)
 endif
@@ -57,14 +54,7 @@ build/.update-modules:
 
 CLEAN+=build/.update-modules
 
-DEPS_OPT:
-	cp -rf ../filecoin-ffi/filcrypto.pc ./extern/filecoin-ffi
-	cp -rf ../filecoin-ffi/filcrypto.h ./extern/filecoin-ffi
-	cp -rf ../filecoin-ffi/libfilcrypto.a ./extern/filecoin-ffi
-
 deps: $(BUILD_DEPS)
-
-
 .PHONY: deps
 
 debug: GOFLAGS+=-tags=debug
@@ -73,7 +63,7 @@ debug: lotus lotus-miner lotus-worker lotus-seed
 2k: GOFLAGS+=-tags=2k
 2k: lotus lotus-miner lotus-worker lotus-seed
 
-lotus: $(BUILD_DEPS) DEPS_OPT
+lotus: $(BUILD_DEPS)
 	rm -f lotus
 	go build $(GOFLAGS) -o lotus ./cmd/lotus
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus -i ./build
@@ -81,28 +71,28 @@ lotus: $(BUILD_DEPS) DEPS_OPT
 .PHONY: lotus
 BINS+=lotus
 
-lotus-miner: $(BUILD_DEPS) DEPS_OPT
+lotus-miner: $(BUILD_DEPS)
 	rm -f lotus-miner
 	go build $(GOFLAGS) -o lotus-miner ./cmd/lotus-storage-miner
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus-miner -i ./build
 .PHONY: lotus-miner
 BINS+=lotus-miner
 
-lotus-worker: $(BUILD_DEPS) DEPS_OPT
+lotus-worker: $(BUILD_DEPS)
 	rm -f lotus-worker
 	go build $(GOFLAGS) -o lotus-worker ./cmd/lotus-seal-worker
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus-worker -i ./build
 .PHONY: lotus-worker
 BINS+=lotus-worker
 
-lotus-shed: $(BUILD_DEPS) DEPS_OPT
+lotus-shed: $(BUILD_DEPS)
 	rm -f lotus-shed
 	go build $(GOFLAGS) -o lotus-shed ./cmd/lotus-shed
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus-shed -i ./build
 .PHONY: lotus-shed
 BINS+=lotus-shed
 
-lotus-gateway: $(BUILD_DEPS) DEPS_OPT
+lotus-gateway: $(BUILD_DEPS)
 	rm -f lotus-gateway
 	go build $(GOFLAGS) -o lotus-gateway ./cmd/lotus-gateway
 .PHONY: lotus-gateway
@@ -111,6 +101,7 @@ BINS+=lotus-gateway
 build: lotus lotus-miner lotus-worker
 	@[[ $$(type -P "lotus") ]] && echo "Caution: you have \
 an existing lotus binary in your PATH. This may cause problems if you don't run 'sudo make install'" || true
+
 .PHONY: build
 
 install: install-daemon install-miner install-worker
@@ -125,17 +116,6 @@ install-worker:
 	install -C ./lotus-worker /usr/local/bin/lotus-worker
 
 # TOOLS
-full: lotus lotus-miner lotus-worker lotus-checker lotus-seed lotus-shed lotus-bench lotus-fountain lotus-stats lotus-health
-	@[[ $$(type -P "lotus") ]] && echo "Caution: you have \
-an existing lotus binary in your PATH. This may cause problems if you don't run 'sudo make install'" || true
-.PHONY: full
-
-lotus-checker: $(BUILD_DEPS) DEPS_OPT
-	rm -f lotus-checker
-	go build $(GOFLAGS) -o lotus-checker ./cmd/sector-checker
-	go run github.com/GeertJohan/go.rice/rice append --exec lotus-checker -i ./build
-.PHONY: lotus-checker
-BINS+=lotus-checker
 
 lotus-seed: $(BUILD_DEPS)
 	rm -f lotus-seed
@@ -147,23 +127,35 @@ BINS+=lotus-seed
 
 benchmarks:
 	go run github.com/whyrusleeping/bencher ./... > bench.json
-	#@echo Submitting results
-	#@curl -X POST 'http://benchmark.kittyhawk.wtf/benchmark' -d '@bench.json' -u "${benchmark_http_cred}"
+	@echo Submitting results
+	@curl -X POST 'http://benchmark.kittyhawk.wtf/benchmark' -d '@bench.json' -u "${benchmark_http_cred}"
 .PHONY: benchmarks
 
 lotus-pond: 2k
 	go build -o lotus-pond ./lotuspond
-	(cd lotuspond/front && npm i && CI=false npm run build)
 .PHONY: lotus-pond
 BINS+=lotus-pond
+
+lotus-pond-front:
+	(cd lotuspond/front && npm i && CI=false npm run build)
+.PHONY: lotus-pond-front
+
+lotus-pond-app: lotus-pond-front lotus-pond
+.PHONY: lotus-pond-app
 
 lotus-townhall:
 	rm -f lotus-townhall
 	go build -o lotus-townhall ./cmd/lotus-townhall
-	(cd ./cmd/lotus-townhall/townhall && npm i && npm run build)
-	go run github.com/GeertJohan/go.rice/rice append --exec lotus-townhall -i ./cmd/lotus-townhall -i ./build
 .PHONY: lotus-townhall
 BINS+=lotus-townhall
+
+lotus-townhall-front:
+	(cd ./cmd/lotus-townhall/townhall && npm i && npm run build)
+.PHONY: lotus-townhall-front
+
+lotus-townhall-app: lotus-touch lotus-townhall-front
+	go run github.com/GeertJohan/go.rice/rice append --exec lotus-townhall -i ./cmd/lotus-townhall -i ./build
+.PHONY: lotus-townhall-app
 
 lotus-fountain:
 	rm -f lotus-fountain
@@ -187,7 +179,7 @@ BINS+=lotus-bench
 
 lotus-stats:
 	rm -f lotus-stats
-	go build -o lotus-stats ./cmd/lotus-stats
+	go build $(GOFLAGS) -o lotus-stats ./cmd/lotus-stats
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus-stats -i ./build
 .PHONY: lotus-stats
 BINS+=lotus-stats
@@ -205,6 +197,12 @@ lotus-health:
 	go run github.com/GeertJohan/go.rice/rice append --exec lotus-health -i ./build
 .PHONY: lotus-health
 BINS+=lotus-health
+
+lotus-wallet:
+	rm -f lotus-wallet
+	go build -o lotus-wallet ./cmd/lotus-wallet
+.PHONY: lotus-wallet
+BINS+=lotus-wallet
 
 testground:
 	go build -tags testground -o /dev/null ./cmd/lotus
@@ -306,7 +304,9 @@ method-gen:
 gen: type-gen method-gen
 
 docsgen:
-	go run ./api/docgen > documentation/en/api-methods.md
+	go run ./api/docgen "api/api_full.go" "FullNode" > documentation/en/api-methods.md
+	go run ./api/docgen "api/api_storage.go" "StorageMiner" > documentation/en/api-methods-miner.md
+	go run ./api/docgen "api/api_worker.go" "WorkerAPI" > documentation/en/api-methods-worker.md
 
 print-%:
 	@echo $*=$($*)

@@ -156,9 +156,7 @@ replace github.com/filecoin-project/filecoin-ffi => ../filecoin-ffi
 
 replace github.com/filecoin-project/test-vectors => ../test-vectors
 
-replace github.com/supranational/blst => ./extern/fil-blst/blst
-
-replace github.com/filecoin-project/fil-blst => ./extern/fil-blst
+replace github.com/supranational/blst => ./extern/blst
 
 replace github.com/filecoin-project/go-fil-markets => ../go-fil-markets
 
