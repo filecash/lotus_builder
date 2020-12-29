@@ -163,9 +163,9 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "1e2ccacdb4c706a96b11878c67681096e133d30e"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "9049e4c9b320a611349b9bb6d3b9287523f9e3d8"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "7f44654d2f07d08178f2aa034e5354db49656edf"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "e195950ba98adb8ce362030356bf4a3809b7ec77"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "f966e46ec4671078d862cd0e5d7ca47588e186c2"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "3e0f0afdc2610811a1ccebea1b2ce31c5a3d121e"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "c8033295a1fc1d6b8f79897993e6de66c571d0d7"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "cf7619f3d1e55571f8af0740ef88e0309d06d353"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "a96c9a107b8d3d2a05a87011a29c9b373d58332d"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
