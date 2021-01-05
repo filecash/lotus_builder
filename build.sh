@@ -159,12 +159,12 @@ git_clone() {
 
     # filecash/v1.2.2
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "00d9a35efea2ab37120a49c3f54d9995e9aea03a"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "561bd37689a9f5f8411f141cc88c2d10cd44b63c"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "799162322ed0912ecf1210be1d48167987dfb985"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "e993197d9c8e49d6c5ee8f9283e92fa0d74fc46e"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "7ced9dd59d58ccb3e9c6646ad6b216df6b2afdaa"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "d2f937c9262777a6f0863e171fe79557599dce90"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "3e0f0afdc2610811a1ccebea1b2ce31c5a3d121e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "694a24810546ab94a46c27450481c1a5e844be25"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "e253cf07ad1ecf55b032c74b292dcede90da505f"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "eadbdb30c1babbf0a8abd41f37c01e607b5cff63"
 
