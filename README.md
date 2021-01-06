@@ -4,6 +4,9 @@
 bash env.sh
 
 
-## Compile Instructions
+## Compile lotus/lotus-miner/lotus-worker
 bash build.sh -a
 
+## Compile lotus-shed/lotus-bench
+bash build.sh -a 
+cd lotus && make lotus-shed lotus-bench
