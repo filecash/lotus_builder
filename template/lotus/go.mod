@@ -162,3 +162,5 @@ replace github.com/filecoin-project/specs-actors => ../specs-actors-v0.9.12
 replace github.com/filecoin-project/specs-actors/v2 => ../specs-actors-v2.0.1
 
 replace github.com/filecoin-project/go-paramfetch => ../go-paramfetch
+
+replace github.com/filecoin-project/go-jsonrpc => ../go-jsonrpc
