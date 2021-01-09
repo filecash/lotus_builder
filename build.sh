@@ -163,7 +163,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "046a62e50106d493dd110de078795c3d7f3d0d8e"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "54854fa048ec508ebbdc7c06aa4360602612819b"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "829f513be2b5dacc424ef6be1762c39c7d81b420"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-jsonrpc.git" go-paramfetch "40621fab352b1b8fd6b84ed5086bbc8bef039b59"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-jsonrpc.git" go-jsonrpc "40621fab352b1b8fd6b84ed5086bbc8bef039b59"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/chain-validation.git" chain-validation "40c22fe26eefba10b7bbb24bf8e742b2a0e2478c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v0.7.0"
