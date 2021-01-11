@@ -55,9 +55,9 @@ build/.update-modules:
 CLEAN+=build/.update-modules
 
 DEPS_OPT:
-       cp -rf ../filecoin-ffi/filcrypto.pc ./extern/filecoin-ffi
-       cp -rf ../filecoin-ffi/filcrypto.h ./extern/filecoin-ffi
-       cp -rf ../filecoin-ffi/libfilcrypto.a ./extern/filecoin-ffi
+	cp -rf ../filecoin-ffi/filcrypto.pc ./extern/filecoin-ffi
+	cp -rf ../filecoin-ffi/filcrypto.h ./extern/filecoin-ffi
+	cp -rf ../filecoin-ffi/libfilcrypto.a ./extern/filecoin-ffi
 
 
 deps: $(BUILD_DEPS)
