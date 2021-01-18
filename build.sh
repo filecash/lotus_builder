@@ -161,18 +161,19 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "52b2b01255a8089ac812d994a0c6ffa5a31711b4"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "0d4b66032e664c445d497ccb2179023067ead9e1"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "6d8fb014f24345f966efc2932742ce1a5eb8ae68"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "3d044481d44cb44d3bc0853df0443efa2830ca1f"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "729979eafff86ef2ad4c053d705336cdce1a9cb6"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "e413f14362febb254d135d86631030322f30c14d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "800d48966c7f2519a6f28607fa892a07dba9f0b3"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "1d5a1ef463660d6c79d7b0258a0f27e21fb47db3"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "5188d9774506"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/test-vectors" test-vectors "d9a75a7873aee0db28b87e3970d2ea16a2f37c6a"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v2.2.0"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"
 
 }
