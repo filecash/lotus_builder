@@ -122,6 +122,12 @@ install-worker:
 	install -C ./lotus-worker /usr/local/bin/lotus-worker
 
 # TOOLS
+lotus-checker: $(BUILD_DEPS) DEPS_OPT
+	rm -f lotus-checker
+	go build $(GOFLAGS) -o lotus-checker ./cmd/sector-checker
+	go run github.com/GeertJohan/go.rice/rice append --exec lotus-checker -i ./build
+.PHONY: lotus-checker
+BINS+=lotus-checker
 
 lotus-seed: $(BUILD_DEPS) DEPS_OPT
 	rm -f lotus-seed
