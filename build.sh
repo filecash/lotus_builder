@@ -159,11 +159,11 @@ git_clone() {
 
     # filecash/v1.2.2
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "aa44ffb773f037a38b9f797f6de3497001b40438"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "6d8fb014f24345f966efc2932742ce1a5eb8ae68"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "3d044481d44cb44d3bc0853df0443efa2830ca1f"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "75d3beed01f3bdc05074e8d04eb137b78e19145e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "8611035a2799c47c20fc5f6da333dfb38254958f"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "1f165e17febb39195bd0a3b3d90c744168f33a8a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "b01ba0a5844b11660d68ce02ae67b62cdb079bfb"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "6156229c6afc2ec1e80dbf8e45fbc4485052a90a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "69c5e584882d03abdb7aed5893eba6a4c54fb5ad"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "e413f14362febb254d135d86631030322f30c14d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "800d48966c7f2519a6f28607fa892a07dba9f0b3"
