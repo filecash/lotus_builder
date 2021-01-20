@@ -4,7 +4,7 @@ set -o pipefail
 
 cmd=$(basename $0)
 
-ARGS=$(getopt -o a::clht -l all::,clone,config,clear,help,test -n "${cmd}" -- "$@")
+ARGS=$(getopt -o a::clhty -l all::,clone,config,clear,help,test,yes -n "${cmd}" -- "$@")
 eval set -- "${ARGS}"
 
 ROOT_PATH=$(
@@ -41,9 +41,44 @@ fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
 
+setArg() {
+   set +e
+   unset _FFI_BUILD_FROM_SOURCE_INPUT
+   while true; do
+       case "${1}" in
+	    '' )
+		 break
+		 ;;
+            -h | --help)
+                 Usage
+                 exit 0
+                 ;;
+            -y | --yes)
+                 _FFI_BUILD_FROM_SOURCE_INPUT=1
+                 break;
+                 ;;
+	    -a | --all | --clone | -c | --config | -l | --clear | -t | --test   )
+                 shift 2                 
+     	         ;;
+             --)
+	         shift
+	         break
+	         ;;
+	    *)
+	        Usage
+	        exit 0
+	        ;;
+       esac
+   done
+}
+
 main() {
     while true; do
         case "${1}" in
+	-y | --yes)
+            _FFI_BUILD_FROM_SOURCE_INPUT=1
+            shift
+	    ;;
         -a | --all)
             echo "builder building..."
             shift
@@ -204,12 +239,16 @@ build_lotus() {
     cd filecoin-ffi
     make clean
     cd -
-
-    check_yesorno
-    if [ $yesorno -eq 1 ]; then
+    echo "SOURCE_INPUT:$_FFI_BUILD_FROM_SOURCE_INPUT"
+    if [ -n "$_FFI_BUILD_FROM_SOURCE_INPUT" ]; then   
        _FFI_BUILD_FROM_SOURCE=1
     else
-       _FFI_BUILD_FROM_SOURCE=0
+       check_yesorno
+       if [ $yesorno -eq 1 ]; then
+             _FFI_BUILD_FROM_SOURCE=1
+       else
+             _FFI_BUILD_FROM_SOURCE=0
+       fi
     fi
     
     set +e
@@ -236,5 +275,5 @@ build_lotus() {
     cd -
 }
 
-main "$@"
-
+setArg "$@"
+main   "$@"
