@@ -57,7 +57,7 @@ setArg() {
                  _FFI_BUILD_FROM_SOURCE_INPUT=1
                  break;
                  ;;
-	    -a | --all | --clone | -c | --config | -l | --clear | -t | --test   )
+	    -a | --all | --clone | -b | -c | --config | -l | --clear | -t | --test   )
                  shift 2                 
      	         ;;
              --)
@@ -83,10 +83,9 @@ main() {
             echo "builder building..."
             shift
             if [[ -n "${1}" ]]; then
-                val_2k="${1}"
-                if [ $val_2k = "2k" ]; then
+                if [ "${1}" = "2k" ]; then
                     all_2k
-                elif [ $val_2k = "all" ]; then
+                elif [ "${1}" = "all" ]; then
                     all_full
                 else
                     Usage
@@ -106,13 +105,12 @@ main() {
 	    echo "builder building"
 	    shift
             if [[ -n "${1}" ]]; then
-                val_2k="${1}"
-                if [ $val_2k = "2k" ]; then
+                if [ "${1}" = "2k" ]; then
                     build_2k
-                elif [ $val_2k = "all" ]; then
+                elif [ "${1}" = "all" ]; then
                     build_full
-                else
-                    Usage
+	        elif [ "${1}" = "--" ]; then
+		    build
                 fi
                 shift
             else
@@ -176,17 +174,14 @@ all_full() {
 }
 
 build(){
-    config
     build_lotus
 }
 
 build_2k() {
-    config
     build_lotus 2k
 }
 
 build_full() {
-    config
     build_lotus full
 }
 
