@@ -4,7 +4,7 @@ set -o pipefail
 
 cmd=$(basename $0)
 
-ARGS=$(getopt -o a::clht -l all::,clone,config,clear,help,test -n "${cmd}" -- "$@")
+ARGS=$(getopt -o a::cblhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
 eval set -- "${ARGS}"
 
 ROOT_PATH=$(
@@ -41,17 +41,51 @@ fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
 
+setArg() {
+   set +e
+   unset _FFI_BUILD_FROM_SOURCE_INPUT
+   while true; do
+       case "${1}" in
+	    '' )
+		 break
+		 ;;
+            -h | --help)
+                 Usage
+                 exit 0
+                 ;;
+            -y | --yes)
+                 _FFI_BUILD_FROM_SOURCE_INPUT=1
+                 break;
+                 ;;
+	    -a | --all | --clone | -b | -c | --config | -l | --clear | -t | --test   )
+                 shift 2                 
+     	         ;;
+             --)
+	         shift
+	         break
+	         ;;
+	    *)
+	        Usage
+	        exit 0
+	        ;;
+       esac
+   done
+}
+
 main() {
     while true; do
         case "${1}" in
+	-y | --yes)
+            _FFI_BUILD_FROM_SOURCE_INPUT=1
+            shift
+	    ;;
         -a | --all)
             echo "builder building..."
             shift
             if [[ -n "${1}" ]]; then
-                val_2k="${1}"
-                if [ $val_2k = "2k" ]; then
+                if [ "${1}" = "2k" ]; then
                     all_2k
-                elif [ $val_2k = "all" ]; then
+                elif [ "${1}" = "all" ]; then
                     all_full
                 else
                     Usage
@@ -67,6 +101,23 @@ main() {
             git_clone
             exit 0
             ;;
+	-b | --build)
+	    echo "builder building"
+	    shift
+            if [[ -n "${1}" ]]; then
+                if [ "${1}" = "2k" ]; then
+                    build_2k
+                elif [ "${1}" = "all" ]; then
+                    build_full
+	        elif [ "${1}" = "--" ]; then
+		    build
+                fi
+                shift
+            else
+               build
+            fi
+            exit 0
+            ;;
         -c | --config)
             echo "builder config"
             config
@@ -79,7 +130,6 @@ main() {
             ;;
         -t | --test)
             echo "builder test"
-            just_for_test
             exit 0
             ;;
         -h | --help)
@@ -123,6 +173,18 @@ all_full() {
     build_lotus full
 }
 
+build(){
+    build_lotus
+}
+
+build_2k() {
+    build_lotus 2k
+}
+
+build_full() {
+    build_lotus full
+}
+
 config() {
     echo ""
     echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
@@ -142,6 +204,7 @@ clear() {
     rm -rf specs-actors-v0.9.13
     rm -rf specs-actors-v2.3.2
     rm -rf bellperson
+    rm -rf go-jsonrpc
 
     rm -rf chain-validation
     rm -rf go-fil-markets
@@ -152,6 +215,7 @@ clear() {
     rm -rf fil-sapling-crypto
     rm -rf chain-validation
     rm -rf neptune
+    rm -rf neptune-triton
     rm -rf phase2
 }
 
@@ -206,12 +270,16 @@ build_lotus() {
     cd filecoin-ffi
     make clean
     cd -
-
-    check_yesorno
-    if [ $yesorno -eq 1 ]; then
+    echo "SOURCE_INPUT:$_FFI_BUILD_FROM_SOURCE_INPUT"
+    if [ -n "$_FFI_BUILD_FROM_SOURCE_INPUT" ]; then   
        _FFI_BUILD_FROM_SOURCE=1
     else
-       _FFI_BUILD_FROM_SOURCE=0
+       check_yesorno
+       if [ $yesorno -eq 1 ]; then
+             _FFI_BUILD_FROM_SOURCE=1
+       else
+             _FFI_BUILD_FROM_SOURCE=0
+       fi
     fi
     
     set +e
@@ -238,5 +306,5 @@ build_lotus() {
     cd -
 }
 
-main "$@"
-
+setArg "$@"
+main   "$@"
