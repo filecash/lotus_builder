@@ -222,21 +222,22 @@ clear() {
 git_clone() {
 
     # filecash/v1.2.2
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "93d26195f15dfd452b973609897a72aeb68c310b"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "1d9cb3e8ff53f51f9318fc57e5d00bc79bdc0128"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "1e2ccacdb4c706a96b11878c67681096e133d30e"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "9049e4c9b320a611349b9bb6d3b9287523f9e3d8"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "7f44654d2f07d08178f2aa034e5354db49656edf"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "e195950ba98adb8ce362030356bf4a3809b7ec77"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "3e0f0afdc2610811a1ccebea1b2ce31c5a3d121e"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "c8033295a1fc1d6b8f79897993e6de66c571d0d7"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "a96c9a107b8d3d2a05a87011a29c9b373d58332d"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "c46464eb53f753723c285c9d1555a22528c6be09"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "ffd26b08b44a9a1e9c44135b72d8a2cdda9c8be0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "6156229c6afc2ec1e80dbf8e45fbc4485052a90a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "75d3beed01f3bdc05074e8d04eb137b78e19145e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "e413f14362febb254d135d86631030322f30c14d"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "5188d9774506"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/test-vectors" test-vectors "d9a75a7873aee0db28b87e3970d2ea16a2f37c6a"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/neptune.git" neptune "v2.2.0"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"
 
 }
@@ -287,6 +288,7 @@ build_lotus() {
     if [[ "$result" != "" ]] ; then
        arch=intel
        export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
+       export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
        export RUSTFLAGS="-C target-cpu=native -A dead_code"
     else
        arch=amd
