@@ -218,7 +218,7 @@ clear() {
 
 git_clone() {
     # filecash/v0.9.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "8a8a12001fc58e89774f8555655b525bd919f196"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "6150c3283d743e35d5d45d2c2d2cefff028a8280"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "b68d8275b1f4277dd5aba7f8e0b7821d9c42f502"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "6a3613c5e3b99b016692d6e053e60311e88d6538"
