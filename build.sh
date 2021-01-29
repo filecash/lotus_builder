@@ -218,10 +218,10 @@ clear() {
 
 git_clone() {
     # filecash/v0.9.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "e32cf05f2333d011f74c874463331c004629f7ae"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "a1176825cf7ecdbaf827dddcc522207d61038034"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "f704653ab77246e2982251d44136ca1c20b497ce"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "b68d8275b1f4277dd5aba7f8e0b7821d9c42f502"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "d9efdd20277b6de5b784dabb0ea127076a56f783"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.12 "268628fc830236bc0ef020ce15cea7722cd40d60"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.0.1 "ae108edb1eab6677c2818275b6f2ba5ed06c7f01"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "d47d97b2822c3dc190f8d2359a49410fef1ff5e8"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "21726b71c34fa326fc0bed9bfa300f197fee7af7"
