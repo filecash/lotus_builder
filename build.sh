@@ -222,7 +222,7 @@ clear() {
 git_clone() {
 
     # filecash/v1.2.2 auto
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "dde3dbb16c9c4b196cc7b0a952eb36db862a141b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "9b7f885d4ce9ff4d6403207d9cba09ac864372e9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "59de386b84a89943082f4a0b697b888b4a859502"
@@ -234,7 +234,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "a082bae9a68ea26b13b97b01268985da4e902d74"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "bd65c906c81592ce629c923fa81013125745f864"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
