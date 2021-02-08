@@ -245,8 +245,10 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v0.7.0"
 	# commit  ed5fae088b20
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
+
 	# commit  ed2e5cd13796
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/specs-storage.git" specs-storage "ed2e5cd13796"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "ab860bd4363db1895b0d53e2dd80e27409e2492f"
+
 	# tag: v0.0.1
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/statediff.git" statediff "v0.0.1"
 	# commit: 7471e2805fc3e459e4ee325775633e8ec76cb7c6
