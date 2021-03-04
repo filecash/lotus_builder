@@ -17,7 +17,10 @@ MODULES:=
 CLEAN:=
 BINS:=
 
-ldflags=-X=github.com/filecoin-project/lotus/build.CurrentCommit=+git.$(subst -,.,$(shell git describe --always --match=NeVeRmAtCh --dirty 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))
+VENDOR:=$(shell grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
+MODEL:=$(shell if [[ "$(VENDOR)" != "" ]] ; then echo 'intel' ; else echo 'amd'; fi)
+$(warning  VENDOR=$(VENDOR) MODEL=$(MODEL))
+ldflags=-X=github.com/filecoin-project/lotus/build.CurrentCommit=+git.$(subst -,.,$(shell git describe --always --match=NeVeRmAtCh --dirty 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))+$(MODEL)+$(shell date +"%Y%m%d_%H%M%S")
 ifneq ($(strip $(LDFLAGS)),)
 	ldflags+=-extldflags=$(LDFLAGS)
 endif
