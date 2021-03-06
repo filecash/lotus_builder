@@ -321,7 +321,7 @@ build_lotus() {
         BLST="FFI_USE_BLST=0"
     fi
 	
-    BUILD_ENV=${BUILD_ENV}" "$FBFS $BLST
+    BUILD_ENV=${BUILD_ENV}" "$FBFS" "$BLST
     echo make "$@" ${BUILD_ENV}
     make "$@" ${BUILD_ENV}
     cd -
