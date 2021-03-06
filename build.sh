@@ -190,7 +190,7 @@ config() {
     echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
     cp -rf $ROOT_PATH/template/* $ROOT_PATH
     echo ""
-    source select_target.sh
+    #source select_target.sh
 }
 
 clear() {
