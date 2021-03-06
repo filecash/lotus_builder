@@ -284,6 +284,18 @@ build_lotus() {
        fi
     fi
     
+	echo "USE_BLST_INPUT:$_FFI_USE_BLST_INPUT"
+    if [ -n "$_FFI_USE_BLST_INPUT" ]; then   
+       _FFI_USE_BLST=1
+    else
+       check_yesorno
+       if [ $yesorno -eq 1 ]; then
+             _FFI_USE_BLST=1
+       else
+             _FFI_USE_BLST=0
+       fi
+    fi
+	
     set +e
     result=$(grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
     if [[ "$result" != "" ]] ; then
@@ -303,7 +315,13 @@ build_lotus() {
     else
         FBFS="FFI_BUILD_FROM_SOURCE=0"
     fi
-    BUILD_ENV=${BUILD_ENV}" "$FBFS
+	if [ $_FFI_USE_BLST -eq 1 ]; then
+        BLST="FFI_USE_BLST=1"
+    else
+        BLST="FFI_USE_BLST=0"
+    fi
+	
+    BUILD_ENV=${BUILD_ENV}" "$FBFS $BLST
     echo make "$@" ${BUILD_ENV}
     make "$@" ${BUILD_ENV}
     cd -
