@@ -53,6 +53,8 @@ default = ["pairing", "gpu"]
 gpu = ["storage-proofs-core/gpu"]
 pairing = ["storage-proofs-core/pairing", "bellperson/pairing", "neptune/pairing"]
 blst = ["storage-proofs-core/blst", "bellperson/blst", "neptune/blst"]
+sha512_avx = ["sha2raw/sha512_avx"]
+sha512_avx2 = ["sha2raw/sha512_avx2"]
 
 [[bench]]
 name = "encode"

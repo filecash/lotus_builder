@@ -145,6 +145,35 @@ build_from_source() {
         additional_flags="--no-default-features --features pairing"
     fi
 
+    set +e
+    is_amd=`lscpu | grep AMD`
+    is_intel=`lscpu | grep Intel`
+    have_avx=`lscpu | grep avx`
+    have_avx2=`lscpu | grep avx2`
+    if [ "$is_amd" != "" ]; then
+            echo "AMD"
+        if [ "$have_avx2" != "" ]; then
+           echo "use avx2"
+           additional_flags="${additional_flags},sha512_avx2"
+        else
+           echo "use asm"
+        fi
+    elif [ "$is_intel" != "" ]; then
+                echo "INTEL"
+        if [ "$have_avx2" != "" ]; then
+            echo "use avx2"
+            additional_flags="${additional_flags},sha512_avx2"
+        elif [ "$have_avx" != "" ]; then
+            echo "use avx"
+            additional_flags="${additional_flags},sha512_avx"
+        else
+            echo "use asm"
+        fi
+    else
+        echo "UNKNOW"
+    fi
+    set -e
+
     if [ -n "${__release_flags}" ]; then
         RUSTFLAGS="-C target-feature=${__release_flags}" ./scripts/build-release.sh "${__library_name}" "$(cat rust-toolchain)" "${additional_flags}"
     else
@@ -198,32 +227,32 @@ get_release_flags() {
         fi
     done
 
-    is_amd=`lscpu | grep AMD`
-    is_intel=`lscpu | grep Intel`
-    have_avx=`lscpu | grep avx`
-    have_avx2=`lscpu | grep avx2`
-    if [ "$is_amd" != "" ]; then
-	    echo "AMD"
-        if [ "$have_avx2" != "" ]; then
-           echo "use avx2"
-           target_features="${target_features},+sha512_avx2"
-        else
-           echo "use asm"
-        fi
-    elif [ "$is_intel" != "" ]; then
-		echo "INTEL"
-        if [ "$have_avx2" != "" ]; then
-            echo "use avx2"
-            target_features="${target_features},+sha512_avx2"
-        elif [ "$have_avx" != "" ]; then
-            echo "use avx"
-            target_features="${target_features},+sha512_avx"
-        else
-            echo "use asm"
-        fi
-    else
-        echo "UNKNOW"
-    fi
+    #is_amd=`lscpu | grep AMD`
+    #is_intel=`lscpu | grep Intel`
+    #have_avx=`lscpu | grep avx`
+    #have_avx2=`lscpu | grep avx2`
+    #if [ "$is_amd" != "" ]; then
+    #	    echo "AMD"
+    #    if [ "$have_avx2" != "" ]; then
+    #       echo "use avx2"
+    #       target_features="${target_features},+sha512_avx2"
+    #    else
+    #       echo "use asm"
+    #    fi
+    #elif [ "$is_intel" != "" ]; then
+    #		echo "INTEL"
+    #    if [ "$have_avx2" != "" ]; then
+    #        echo "use avx2"
+    #        target_features="${target_features},+sha512_avx2"
+    #    elif [ "$have_avx" != "" ]; then
+    #        echo "use avx"
+    #        target_features="${target_features},+sha512_avx"
+    #    else
+    #        echo "use asm"
+    #    fi
+    #else
+    #    echo "UNKNOW"
+    #fi
 
     echo "${target_features}"
 }

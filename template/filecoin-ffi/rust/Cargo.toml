@@ -50,3 +50,5 @@ tempfile = "3.0.8"
 default = ["pairing"]
 pairing = ["filecoin-proofs-api/pairing", "bellperson/pairing"]
 blst = ["filecoin-proofs-api/blst", "bellperson/blst"]
+sha512_avx = ["filecoin-proofs-api/sha512_avx"]
+sha512_avx2 = ["filecoin-proofs-api/sha512_avx2"]

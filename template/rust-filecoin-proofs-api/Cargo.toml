@@ -21,3 +21,5 @@ bellperson = { path = "../bellperson", default-features = false, features = ["gp
 default = ["pairing"]
 pairing = ["filecoin-proofs-v1/pairing", "bellperson/pairing"]
 blst = ["filecoin-proofs-v1/blst", "bellperson/blst"]
+sha512_avx = ["filecoin-proofs-v1/sha512_avx"]
+sha512_avx2 = ["filecoin-proofs-v1/sha512_avx2"]
