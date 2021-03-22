@@ -222,16 +222,17 @@ clear() {
 
 git_clone() {
 
-    # filecash/v1.2.2
+    # filecash/v1.5.0
 
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "a240d0e0d60722f570677ef404799f4cbe447e43"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "c4d847b33402d3e87fb1d90e4814f3a4a8b44a5a"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "4178c7994617cf81ff540e7e98c345cc603c4af0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "531c020f329e3c2c12731cb73eae844bdb4370fe"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.2 "a1af1d6127f36c966d57fba1390001442b705e69"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "855a1a21c8bb296340c761c637e05ea20c94e523"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "e4be2dd0d8b966298bd62493b51d4a54d2fd6e44"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "c2675f0918ddf6d571721296dc5e2242115d26da"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "83265abb312f9d509da4a391b617e00d51fa4c41"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
