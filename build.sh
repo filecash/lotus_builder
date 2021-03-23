@@ -190,7 +190,6 @@ config() {
     echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
     cp -rf $ROOT_PATH/template/* $ROOT_PATH
     echo ""
-    source select_target.sh
 }
 
 clear() {
@@ -203,7 +202,8 @@ clear() {
     rm -rf go-paramfetch
     rm -rf sapling-crypto
     rm -rf specs-actors-v0.9.13
-    rm -rf specs-actors-v2.3.2
+    rm -rf specs-actors-v2.3.4
+    rm -rf specs-actors-v3.0.3
     rm -rf bellperson
     rm -rf go-jsonrpc
 
@@ -218,16 +218,17 @@ clear() {
     rm -rf neptune
     rm -rf neptune-triton
     rm -rf phase2
+    rm -rf serialization-vectors
 }
 
 git_clone() {
 
     # filecash/v1.5.0
 
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "c4d847b33402d3e87fb1d90e4814f3a4a8b44a5a"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "47d3146f4428de7b3d16b4b86eb6f43a432d122d"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "531c020f329e3c2c12731cb73eae844bdb4370fe"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "59de386b84a89943082f4a0b697b888b4a859502"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "855a1a21c8bb296340c761c637e05ea20c94e523"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "e4be2dd0d8b966298bd62493b51d4a54d2fd6e44"
