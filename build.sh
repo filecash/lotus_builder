@@ -226,7 +226,7 @@ git_clone() {
 
     # filecash/v1.5.0
 
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "7eaa38e4c33276d417901886e260d08b8ae5e09e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "8aab4e6e3cdb782e0874ffd0d61ae8576254cecb"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "59de386b84a89943082f4a0b697b888b4a859502"
@@ -242,7 +242,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "bd65c906c81592ce629c923fa81013125745f864"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/serialization-vectors.git" serialization-vectors "5bfb928"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.0.9"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.1.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"
 
