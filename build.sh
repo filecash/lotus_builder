@@ -225,8 +225,8 @@ git_clone() {
 
     # filecash/v1.5.0
 
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "47d3146f4428de7b3d16b4b86eb6f43a432d122d"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "7eaa38e4c33276d417901886e260d08b8ae5e09e"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "59de386b84a89943082f4a0b697b888b4a859502"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
