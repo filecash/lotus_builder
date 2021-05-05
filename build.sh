@@ -249,7 +249,7 @@ check_yesorno() {
   while [ -z $yesorno ]
   do
     echo " "
-    read -e -r -p "Are you sure set FFI_BUILD_FROM_SOURCE? [[Y]es/[N]o " input
+    read -e -r -p "Are you sure set FFI_BUILD_FROM_SOURCE? [[Y]es/[N]o] " input
     case $input in
       [yY][eE][sS]|[yY])
         echo -e "\033[34m Yes \033[0m"
