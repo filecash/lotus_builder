@@ -10,7 +10,9 @@ clone_and_checkout() {
     local __dst=$2
     local __ckeckout=$3
 
+    echo " "
     echo -e "\033[34m $__dst \033[0m"
+    echo " "
     
     if [ ! -d $__dst ]
     then

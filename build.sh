@@ -4,7 +4,14 @@ set -o pipefail
 
 cmd=$(basename $0)
 
-ARGS=$(getopt -o a::cblhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
+unset _FFI_BUILD_FROM_SOURCE_INPUT
+for arg in "$@"
+do
+  if [ "$arg" = "-y" ] || [ "$arg" = "--yes" ] ; then
+     _FFI_BUILD_FROM_SOURCE_INPUT=1
+  fi
+done
+ARGS=$(getopt -o a::cb::lhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
 eval set -- "${ARGS}"
 
 ROOT_PATH=$(
@@ -41,46 +48,15 @@ fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
 
-setArg() {
-   set +e
-   unset _FFI_BUILD_FROM_SOURCE_INPUT
-   while true; do
-       case "${1}" in
-	    '' )
-		 break
-		 ;;
-            -h | --help)
-                 Usage
-                 exit 0
-                 ;;
-            -y | --yes)
-                 _FFI_BUILD_FROM_SOURCE_INPUT=1
-                 break;
-                 ;;
-	    -a | --all | --clone | -b | -c | --config | -l | --clear | -t | --test   )
-                 shift 2                 
-     	         ;;
-             --)
-	         shift
-	         break
-	         ;;
-	    *)
-	        Usage
-	        exit 0
-	        ;;
-       esac
-   done
-}
-
 main() {
     while true; do
         case "${1}" in
-	-y | --yes)
-            _FFI_BUILD_FROM_SOURCE_INPUT=1
-            shift
-	    ;;
+        -y | --yes)
+                _FFI_BUILD_FROM_SOURCE_INPUT=1
+                shift
+            ;;
         -a | --all)
-            echo "builder building..."
+            echo "builder clone building..."
             shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
@@ -90,37 +66,34 @@ main() {
                 else
                     Usage
                 fi
-                shift
             else
-                all
+                all 
             fi
             exit 0
             ;;
-        --clone)
-            echo "builder clone"
-            git_clone
-            exit 0
-            ;;
-	-b | --build)
-	    echo "builder building"
-	    shift
+        -b | --build)
+            echo "builder building"
+            shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
                     build_2k
                 elif [ "${1}" = "all" ]; then
                     build_full
-	        elif [ "${1}" = "--" ]; then
-		    build
+                else
+                    Usage 
                 fi
-                shift
             else
+                build 
                build
+                build 
+               build
+                build 
             fi
             exit 0
             ;;
-        -c | --config)
-            echo "builder config"
-            config
+        -c | --clone)
+            echo "builder clone"
+            git_clone
             exit 0
             ;;
         -l | --clear)
@@ -152,7 +125,7 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options {-a,--all(2k,all) | --clone | -c,--config | -l,--clear | -t,--test | -h}"
+    echo "Usage:"${cmd}" options {-a,--all(2k,all) | -b,--build(2k,all) | -c,--clone | -l,--clear | -t,--test | -h}"
 }
 
 all() {
@@ -207,6 +180,7 @@ clear() {
     rm -rf specs-actors-v3.0.3
     rm -rf bellperson
     rm -rf go-jsonrpc
+    rm -rf merkletree
 
     rm -rf chain-validation
     rm -rf go-fil-markets
@@ -225,7 +199,6 @@ clear() {
 git_clone() {
 
     # filecash/v1.5.0
-
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "4f47dd2501052d3504d6d1fa17149013f7318ef8"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
@@ -240,6 +213,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "bd65c906c81592ce629c923fa81013125745f864"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/serialization-vectors.git" serialization-vectors "5bfb928"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.1.9"
@@ -270,10 +244,12 @@ check_yesorno() {
         ;;
     esac
   done
-# return $yesorno
 }
 
 build_lotus() {
+    echo -e "\033[34m make $1 \033[0m"
+    echo ""
+
     cd filecoin-ffi
     make clean
     cd -
@@ -311,8 +287,11 @@ build_lotus() {
     BUILD_ENV=${BUILD_ENV}" "$FBFS
     echo make "$@" ${BUILD_ENV}
     make "$@" ${BUILD_ENV}
+    echo ""
+    echo -e "\033[34m $ROOT_PATH/lotus/lotus \033[0m"
+    echo -e "\033[34m `./lotus -v` \033[0m"
+    echo ""
     cd -
 }
 
-setArg "$@"
 main   "$@"
