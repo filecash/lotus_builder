@@ -60,7 +60,7 @@ main() {
             shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
-                    all_2k
+                    all 2k
                 elif [ "${1}" = "all" ]; then
                     all_full
                 else
@@ -76,22 +76,23 @@ main() {
             shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
-                    build_2k
+                    build 2k
                 elif [ "${1}" = "all" ]; then
                     build_full
                 else
                     Usage 
                 fi
             else
-                build 
-               build
-                build 
-               build
-                build 
+                build
             fi
             exit 0
             ;;
-        -c | --clone)
+        -c | --config)
+            echo "builder config"
+            config
+            exit 0
+            ;;
+        --clone)
             echo "builder clone"
             git_clone
             exit 0
@@ -131,13 +132,7 @@ Usage() {
 all() {
     git_clone
     config
-    build_lotus
-}
-
-all_2k() {
-    git_clone
-    config
-    build_lotus 2k
+    build_lotus $1
 }
 
 all_full() {
@@ -147,11 +142,7 @@ all_full() {
 }
 
 build(){
-    build_lotus
-}
-
-build_2k() {
-    build_lotus 2k
+    build_lotus $1
 }
 
 build_full() {
@@ -227,7 +218,7 @@ check_yesorno() {
   while [ -z $yesorno ]
   do
     echo " "
-    read -e -r -p "Are you sure set FFI_BUILD_FROM_SOURCE? [[Y]es/[N]o " input
+    read -e -r -p "Are you sure set FFI_BUILD_FROM_SOURCE? [[Y]es/[N]o] " input
     case $input in
       [yY][eE][sS]|[yY])
         echo -e "\033[34m Yes \033[0m"
