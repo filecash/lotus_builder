@@ -21,16 +21,17 @@ VENDOR:=$(shell grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
 MODEL:=$(shell if [[ "$(VENDOR)" != "" ]] ; then echo 'intel' ; else echo 'amd'; fi)
 AVX:=$(shell lscpu | grep avx)
 AVX2:=$(shell lscpu | grep avx2)
-FEATURES:=$(shell if [ "$(MODEL)" == "intel" ] ; then \
-                 	if   [ "$(AVX2)" != "" ] ; then echo avx2 ; \
-                        elif [ "$(AVX)"  != "" ] ; then echo avx ; \
-                        else echo asm ; \
-       	                fi \
-                  else \
-                      if [ "$(AVX2)" != "" ] ; then echo avx2 ; \
- 	              else echo asm ; \
-        	      fi \
-	          fi)
+FEATURES:=$(shell \
+    if [ "$(MODEL)" == "intel" ] ; then \
+        if   [ "$(AVX2)" != "" ] ; then echo avx2 ; \
+        elif [ "$(AVX)"  != "" ] ; then echo avx ; \
+        else echo asm ; \
+        fi \
+    else \
+        if [ "$(AVX2)" != "" ] ; then echo avx2 ; \
+        else echo asm ; \
+        fi \
+    fi)
 $(warning  VENDOR=$(VENDOR) MODEL=$(MODEL) FEATURES=$(FEATURES))
 ldflags=-X=github.com/filecoin-project/lotus/build.CurrentCommit=+git.$(subst -,.,$(shell git describe --always --match=NeVeRmAtCh --dirty 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))+$(MODEL)+$(FEATURES)+$(shell date +"%Y%m%d_%H%M%S")
 ifneq ($(strip $(LDFLAGS)),)
