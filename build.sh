@@ -59,10 +59,10 @@ echo ""
 main() {
     while true; do
         case "${1}" in
-	    -y | --yes)
+        -y | --yes)
             _FFI_BUILD_FROM_SOURCE_INPUT=1
             shift
-	        ;;
+            ;;
         -a | --all)
             echo "builder clone and building"
             shift
