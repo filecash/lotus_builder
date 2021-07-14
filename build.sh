@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 set -o pipefail
 
@@ -11,6 +12,7 @@ do
      _FFI_BUILD_FROM_SOURCE_INPUT=1
   fi
 done
+
 ARGS=$(getopt -o a::cb::lhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
 eval set -- "${ARGS}"
 
@@ -45,18 +47,24 @@ fi
 if [ -f $ENV_LOG_DIR/.env_proxy ]; then
   source $ENV_LOG_DIR/.env_proxy
 fi
+if [ ! -d $TMPDIR ]; then
+    mkdir $TMPDIR
+elif [ ! -d $GOPATH ]; then
+    mkdir $GOPATH
+fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
+echo ""
 
 main() {
     while true; do
         case "${1}" in
         -y | --yes)
-                _FFI_BUILD_FROM_SOURCE_INPUT=1
-                shift
+            _FFI_BUILD_FROM_SOURCE_INPUT=1
+            shift
             ;;
         -a | --all)
-            echo "builder clone building..."
+            echo "builder clone and building"
             shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
@@ -67,7 +75,7 @@ main() {
                     Usage
                 fi
             else
-                all 
+                all
             fi
             exit 0
             ;;
@@ -80,10 +88,10 @@ main() {
                 elif [ "${1}" = "all" ]; then
                     build_full
                 else
-                    Usage 
+                    Usage
                 fi
             else
-                build
+               build
             fi
             exit 0
             ;;
@@ -126,7 +134,7 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options {-a,--all(2k,all) | -b,--build(2k,all) | -c,--clone | -l,--clear | -t,--test | -h}"
+    echo "Usage:"${cmd}" options { -a,--all(2k,all) | -b,--build(2k,all) | -c,--config | --clone | -l,--clear | -t,--test | -h }"
 }
 
 all() {
@@ -154,7 +162,11 @@ config() {
     echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
     cp -rf $ROOT_PATH/template/* $ROOT_PATH
     echo ""
-    #source select_target.sh
+    set +e
+    echo -e "\033[34m source select_target.sh \033[0m"
+    source select_target.sh
+    set -e
+    echo ""
 }
 
 clear() {
@@ -189,24 +201,42 @@ clear() {
 
 git_clone() {
 
-    # filecash/v1.5.0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "4f47dd2501052d3504d6d1fa17149013f7318ef8"
+    # filecash/v1.5.0 5f44f84eb8063b7a8ff050cc369702f534159a9c
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "5f44f84eb8063b7a8ff050cc369702f534159a9c"
+    # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
+    # filecash/v1.5.0 531c020f329e3c2c12731cb73eae844bdb4370fe
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "59de386b84a89943082f4a0b697b888b4a859502"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "855a1a21c8bb296340c761c637e05ea20c94e523"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "e4be2dd0d8b966298bd62493b51d4a54d2fd6e44"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "83265abb312f9d509da4a391b617e00d51fa4c41"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "bd65c906c81592ce629c923fa81013125745f864"
+
+    # filecash/v1.2.2 88d3d9ff89e035c0b1c3057ecc3e53a82256d785
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
+    # filecash/v1.2.2 4411241ffa8d2aabf75affd0f5ec663996bf1674
+    # /filecash/v1.2.2-sha512-avx 0eaca46a636700bc03f7d4393ff819d6957fe68b
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "0eaca46a636700bc03f7d4393ff819d6957fe68b"
+    # filecash/0.21.0 17b0ac21d13e85f76e474e45db24d95181265781
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
-    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/serialization-vectors.git" serialization-vectors "5bfb928"
+    # filecash/v1.2.2 26b53042c1689d4c0ccb163a44ab0ac60a192ef4
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
+    # filecash/v1.2.2 37caaecccf5ab6cb6bd595f97b96ad12fae4db3b
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
+    # filecash/v1.2.2 753c436bcd446cee8a1672cd8603924cbfa5f3ea
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
+
+    # filecash/v1.5.0-0.9.13 001beb2f7622ca1e02c011b21fd91491c27807e2
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
+    # filecash/v1.5.0-2.3.4 855a1a21c8bb296340c761c637e05ea20c94e523
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "855a1a21c8bb296340c761c637e05ea20c94e523"
+    # filecash/v1.5.0-3.0.3 e4be2dd0d8b966298bd62493b51d4a54d2fd6e44
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "e4be2dd0d8b966298bd62493b51d4a54d2fd6e44"
+    # filecash/v1.2.2 978a8faec08408e83e5a5c0350e39566ac0a9bce
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
+    # filecash/v1.5.0 83265abb312f9d509da4a391b617e00d51fa4c41
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "83265abb312f9d509da4a391b617e00d51fa4c41"
+    # filecash/v1.2.2 7fb89143805afcf53e1ff14b94615eedfa839e68
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
+
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/serialization-vectors.git" serialization-vectors "5bfb928910b0"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.1.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"
@@ -235,36 +265,38 @@ check_yesorno() {
         ;;
     esac
   done
+# return $yesorno
 }
 
 build_lotus() {
+    echo ""
     echo -e "\033[34m make $1 \033[0m"
     echo ""
-
+    
     cd filecoin-ffi
     make clean
     cd -
     echo "SOURCE_INPUT:$_FFI_BUILD_FROM_SOURCE_INPUT"
     if [ -n "$_FFI_BUILD_FROM_SOURCE_INPUT" ]; then   
-       _FFI_BUILD_FROM_SOURCE=1
+        _FFI_BUILD_FROM_SOURCE=1
     else
-       check_yesorno
-       if [ $yesorno -eq 1 ]; then
-             _FFI_BUILD_FROM_SOURCE=1
-       else
-             _FFI_BUILD_FROM_SOURCE=0
-       fi
+        check_yesorno
+        if [ $yesorno -eq 1 ]; then
+            _FFI_BUILD_FROM_SOURCE=1
+        else
+            _FFI_BUILD_FROM_SOURCE=0
+        fi
     fi
     
     set +e
     result=$(grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
     if [[ "$result" != "" ]] ; then
-       arch=intel
-       export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
-       export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
-       export RUSTFLAGS="-C target-cpu=native -A dead_code"
+        arch=intel
+        export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
+        export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
+        export RUSTFLAGS="-C target-cpu=native -A dead_code"
     else
-       arch=amd
+        arch=amd
     fi
     set -e
     
