@@ -1,10 +1,19 @@
 #!/bin/bash
+
 set -e
 set -o pipefail
 
 cmd=$(basename $0)
 
-ARGS=$(getopt -o a::cblhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
+unset _FFI_BUILD_FROM_SOURCE_INPUT
+for arg in "$@"
+do
+  if [ "$arg" = "-y" ] || [ "$arg" = "--yes" ] ; then
+     _FFI_BUILD_FROM_SOURCE_INPUT=1
+  fi
+done
+
+ARGS=$(getopt -o a::cb::lhty -l all::,clone,config,build,clear,help,test,yes -n "${cmd}" -- "$@")
 eval set -- "${ARGS}"
 
 ROOT_PATH=$(
@@ -38,59 +47,32 @@ fi
 if [ -f $ENV_LOG_DIR/.env_proxy ]; then
   source $ENV_LOG_DIR/.env_proxy
 fi
+if [ ! -d $TMPDIR ]; then
+    mkdir $TMPDIR
+elif [ ! -d $GOPATH ]; then
+    mkdir $GOPATH
+fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
-
-setArg() {
-   set +e
-   unset _FFI_BUILD_FROM_SOURCE_INPUT
-   while true; do
-       case "${1}" in
-	    '' )
-		 break
-		 ;;
-            -h | --help)
-                 Usage
-                 exit 0
-                 ;;
-            -y | --yes)
-                 _FFI_BUILD_FROM_SOURCE_INPUT=1
-                 break;
-                 ;;
-	    -a | --all | --clone | -b | -c | --config | -l | --clear | -t | --test   )
-                 shift 2                 
-     	         ;;
-             --)
-	         shift
-	         break
-	         ;;
-	    *)
-	        Usage
-	        exit 0
-	        ;;
-       esac
-   done
-}
 
 main() {
     while true; do
         case "${1}" in
-	-y | --yes)
+	    -y | --yes)
             _FFI_BUILD_FROM_SOURCE_INPUT=1
             shift
-	    ;;
+	        ;;
         -a | --all)
-            echo "builder building..."
+            echo "builder clone and building"
             shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
-                    all_2k
+                    all 2k
                 elif [ "${1}" = "all" ]; then
                     all_full
                 else
                     Usage
                 fi
-                shift
             else
                 all
             fi
@@ -101,18 +83,17 @@ main() {
             git_clone
             exit 0
             ;;
-	-b | --build)
-	    echo "builder building"
-	    shift
+        -b | --build)
+            echo "builder building"
+            shift
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
-                    build_2k
+                    build 2k
                 elif [ "${1}" = "all" ]; then
                     build_full
-	        elif [ "${1}" = "--" ]; then
-		    build
+                else
+                    Usage
                 fi
-                shift
             else
                build
             fi
@@ -152,19 +133,13 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options {-a,--all(2k,all) | --clone | -c,--config | -l,--clear | -t,--test | -h}"
+    echo "Usage:"${cmd}" options { -a,--all(2k,all) | -b,--build(2k,all) | --clone | -c,--config | -l,--clear | -t,--test | -h }"
 }
 
 all() {
     git_clone
     config
-    build_lotus
-}
-
-all_2k() {
-    git_clone
-    config
-    build_lotus 2k
+    build_lotus $1
 }
 
 all_full() {
@@ -174,11 +149,7 @@ all_full() {
 }
 
 build(){
-    build_lotus
-}
-
-build_2k() {
-    build_lotus 2k
+    build_lotus $1
 }
 
 build_full() {
@@ -223,7 +194,6 @@ clear() {
 git_clone() {
 
     # filecash/v1.2.2
-
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "c41e1ae279b3bd2db960041fc03b67382c1632aa"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "20771c8dec42211bb7cd618ce474bd6aea81e36c"
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "5e8c7b2143656405e7d56f585233493de9342544"
@@ -270,30 +240,33 @@ check_yesorno() {
 }
 
 build_lotus() {
+    echo -e "\033[34m make $1 \033[0m"
+    echo ""
+    
     cd filecoin-ffi
     make clean
     cd -
     echo "SOURCE_INPUT:$_FFI_BUILD_FROM_SOURCE_INPUT"
     if [ -n "$_FFI_BUILD_FROM_SOURCE_INPUT" ]; then   
-       _FFI_BUILD_FROM_SOURCE=1
+        _FFI_BUILD_FROM_SOURCE=1
     else
-       check_yesorno
-       if [ $yesorno -eq 1 ]; then
-             _FFI_BUILD_FROM_SOURCE=1
-       else
-             _FFI_BUILD_FROM_SOURCE=0
-       fi
+        check_yesorno
+        if [ $yesorno -eq 1 ]; then
+            _FFI_BUILD_FROM_SOURCE=1
+        else
+            _FFI_BUILD_FROM_SOURCE=0
+        fi
     fi
     
     set +e
     result=$(grep -m 1 'vendor_id' /proc/cpuinfo | grep "Intel")
     if [[ "$result" != "" ]] ; then
-       arch=intel
-       export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
-       export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
-       export RUSTFLAGS="-C target-cpu=native -A dead_code"
+        arch=intel
+        export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
+        export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
+        export RUSTFLAGS="-C target-cpu=native -A dead_code"
     else
-       arch=amd
+        arch=amd
     fi
     set -e
     
@@ -310,5 +283,4 @@ build_lotus() {
     cd -
 }
 
-setArg "$@"
 main   "$@"
