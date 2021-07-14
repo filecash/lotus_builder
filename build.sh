@@ -54,6 +54,7 @@ elif [ ! -d $GOPATH ]; then
 fi
 echo -e "\033[34m http_proxy=$http_proxy \033[0m"
 echo -e "\033[34m https_proxy=$https_proxy \033[0m"
+echo ""
 
 main() {
     while true; do
@@ -161,7 +162,11 @@ config() {
     echo -e "\033[34m cp -rf $ROOT_PATH/template/* $ROOT_PATH \033[0m"
     cp -rf $ROOT_PATH/template/* $ROOT_PATH
     echo ""
+    set +e
+    echo -e "\033[34m source select_target.sh \033[0m"
     source select_target.sh
+    set -e
+    echo ""
 }
 
 clear() {
@@ -240,6 +245,7 @@ check_yesorno() {
 }
 
 build_lotus() {
+    echo ""
     echo -e "\033[34m make $1 \033[0m"
     echo ""
     
@@ -280,6 +286,10 @@ build_lotus() {
     BUILD_ENV=${BUILD_ENV}" "$FBFS
     echo make "$@" ${BUILD_ENV}
     make "$@" ${BUILD_ENV}
+    echo ""
+    echo -e "\033[34m $ROOT_PATH/lotus/lotus \033[0m"
+    echo -e "\033[34m `./lotus -v` \033[0m"
+    echo ""
     cd -
 }
 
