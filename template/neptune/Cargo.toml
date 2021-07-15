@@ -19,7 +19,6 @@ generic-array = "0.14.4"
 log = "0.4.8"
 rust-gpu-tools = { version = "0.3.0", optional = true }
 
-triton = { path = "", package = "neptune-triton", default-features = false, features = ["opencl"], optional = true }
 itertools = { version = "0.8.0" }
 ff-cl-gen = "0.2.0"
 
