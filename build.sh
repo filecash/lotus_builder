@@ -212,15 +212,16 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
     # filecash/v1.2.2 4411241ffa8d2aabf75affd0f5ec663996bf1674
     # filecash/v1.2.2-sha512-avx 0eaca46a636700bc03f7d4393ff819d6957fe68b
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "0eaca46a636700bc03f7d4393ff819d6957fe68b"
+    # filecash/v1.5.0 71a32a4dcd1c18075772307ce041c5295ae845fb
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "71a32a4dcd1c18075772307ce041c5295ae845fb"
     # filecash/0.21.0 17b0ac21d13e85f76e474e45db24d95181265781
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
     # filecash/v1.2.2 26b53042c1689d4c0ccb163a44ab0ac60a192ef4
-    # filecash/v1.5.0 0eaca46a636700bc03f7d4393ff819d6957fe68b
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
     # filecash/v1.2.2 37caaecccf5ab6cb6bd595f97b96ad12fae4db3b
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "37caaecccf5ab6cb6bd595f97b96ad12fae4db3b"
+    # filecash/v1.5.0 5d55341d9ad26c3cd8e8887d6d066c26365216e8
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
     # filecash/v1.2.2 753c436bcd446cee8a1672cd8603924cbfa5f3ea
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
 
