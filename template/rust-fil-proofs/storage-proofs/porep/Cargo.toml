@@ -56,7 +56,7 @@ pretty_env_logger = "0.4.0"
 
 [features]
 default = ["pairing", "gpu"]
-gpu = ["storage-proofs-core/gpu"]
+gpu = ["storage-proofs-core/gpu", "neptune/opencl", "bellperson/gpu"]
 pairing = ["storage-proofs-core/pairing", "bellperson/pairing", "neptune/pairing"]
 blst = ["storage-proofs-core/blst", "bellperson/blst", "neptune/blst"]
 
