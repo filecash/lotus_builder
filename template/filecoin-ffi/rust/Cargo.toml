@@ -56,6 +56,6 @@ tempfile = "3.0.8"
 
 [features]
 default = ["pairing"]
-pairing = ["filecoin-proofs-api/pairing", "bellperson/pairing"]
-blst = ["filecoin-proofs-api/blst", "bellperson/blst"]
+pairing = ["filecoin-proofs-api/pairing", "filecoin-webapi/pairing", "bellperson/pairing"]
+blst = ["filecoin-proofs-api/blst", "filecoin-webapi/blst", "bellperson/blst"]
 blst-portable = ["bls-signatures/blst-portable", "blstrs/portable"]
