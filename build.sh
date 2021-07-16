@@ -222,14 +222,14 @@ clear() {
 
 git_clone() {
 
-    # filecash/v1.5.0 92dbccffcbc026d1f8df740a906702353c09a7a1
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "92dbccffcbc026d1f8df740a906702353c09a7a1"
+    # filecash/v1.5.0 98cfa158d9c40eb2519d202ac93971539fa0560a
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "98cfa158d9c40eb2519d202ac93971539fa0560a"
     # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
-    # filecash/v1.5.0 531c020f329e3c2c12731cb73eae844bdb4370fe
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
-    # filecash 35778d32abfabe07651c16d1ae8686435f5b09e4
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "35778d32abfabe07651c16d1ae8686435f5b09e4"
+    # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "bc9f6b2d3c787d74ee30257aad8429d95daf06b9"
+    # filecash f22c7982824134d8f2109a18f13acafb453d01a0
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "f22c7982824134d8f2109a18f13acafb453d01a0"
 
     # filecash/v1.2.2 88d3d9ff89e035c0b1c3057ecc3e53a82256d785
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
