@@ -228,8 +228,8 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "bc9f6b2d3c787d74ee30257aad8429d95daf06b9"
-    # filecash f22c7982824134d8f2109a18f13acafb453d01a0
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "f22c7982824134d8f2109a18f13acafb453d01a0"
+    # filecash 3feeceb0cf6c8e18fe64bc68cf755edcbf99f411
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "3feeceb0cf6c8e18fe64bc68cf755edcbf99f411"
 
     # filecash/v1.2.2 88d3d9ff89e035c0b1c3057ecc3e53a82256d785
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
