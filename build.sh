@@ -138,7 +138,7 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options { -a,--all(2k,all) | -b,--build(2k,all) | -c,--config | --clone | -l,--clear | -t,--test | -h }"
+    echo "Usage:"${cmd}" options { -a,--all(2k,all,webapi) | -b,--build(2k,all,webapi) | -c,--config | --clone | -l,--clear | -t,--test | -h }"
 }
 
 all() {
