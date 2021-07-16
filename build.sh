@@ -71,6 +71,8 @@ main() {
                     all 2k
                 elif [ "${1}" = "all" ]; then
                     all_full
+                elif [ "${1}" = "webapi" ]; then
+                    all_webapi
                 else
                     Usage
                 fi
@@ -87,6 +89,8 @@ main() {
                     build 2k
                 elif [ "${1}" = "all" ]; then
                     build_full
+                elif [ "${1}" = "webapi" ]; then
+                    build_webapi
                 else
                     Usage
                 fi
@@ -149,12 +153,28 @@ all_full() {
     build_lotus full
 }
 
+all_webapi() {
+    git_clone
+    build_webapi
+}
+
 build(){
     build_lotus $1
 }
 
 build_full() {
     build_lotus full
+    build_webapi
+}
+
+build_webapi(){
+    cd filecoin-webapi
+    env RUSTFLAGS="-lhugetlbfs" cargo build --release
+    echo ""
+    echo -e "\033[34m $ROOT_PATH/filecoin-webapi/target/release/filecoin-webapi \033[0m"
+    echo -e "\033[34m `./target/release/filecoin-webapi -V` \033[0m"
+    echo ""
+    cd -
 }
 
 config() {
@@ -197,6 +217,7 @@ clear() {
     rm -rf neptune-triton
     rm -rf phase2
     rm -rf serialization-vectors
+    rm -rf filecoin-webapi
 }
 
 git_clone() {
@@ -207,6 +228,8 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 531c020f329e3c2c12731cb73eae844bdb4370fe
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "531c020f329e3c2c12731cb73eae844bdb4370fe"
+    # filecash 35778d32abfabe07651c16d1ae8686435f5b09e4
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "35778d32abfabe07651c16d1ae8686435f5b09e4"
 
     # filecash/v1.2.2 88d3d9ff89e035c0b1c3057ecc3e53a82256d785
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
