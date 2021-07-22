@@ -222,8 +222,8 @@ clear() {
 
 git_clone() {
 
-    # filecash/v1.5.0 98cfa158d9c40eb2519d202ac93971539fa0560a
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "98cfa158d9c40eb2519d202ac93971539fa0560a"
+    # filecash/v1.5.0 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "0dc8195aea3f49b10f2f51eb0d4b039fa6375924"
     # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
@@ -248,12 +248,12 @@ git_clone() {
     # filecash/v1.2.2 753c436bcd446cee8a1672cd8603924cbfa5f3ea
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
 
-    # filecash/v1.5.0-0.9.13 001beb2f7622ca1e02c011b21fd91491c27807e2
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "001beb2f7622ca1e02c011b21fd91491c27807e2"
-    # filecash/v1.5.0-2.3.4 855a1a21c8bb296340c761c637e05ea20c94e523
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "855a1a21c8bb296340c761c637e05ea20c94e523"
-    # filecash/v1.5.0-3.0.3 e4be2dd0d8b966298bd62493b51d4a54d2fd6e44
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "e4be2dd0d8b966298bd62493b51d4a54d2fd6e44"
+    # filecash/v1.5.0-0.9.13 a408ccc71bfb085af6e14549d10fed8c7511eb26
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "a408ccc71bfb085af6e14549d10fed8c7511eb26"
+    # filecash/v1.5.0-2.3.4 479fda7cf1af12100dc8c089b53de5fc25a3f54e
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "479fda7cf1af12100dc8c089b53de5fc25a3f54e"
+    # filecash/v1.5.0-3.0.3 94575708c87ea20c0376be56d10f630efc8c1485
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "94575708c87ea20c0376be56d10f630efc8c1485"
     # filecash/v1.2.2 978a8faec08408e83e5a5c0350e39566ac0a9bce
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
     # filecash/v1.5.0 83265abb312f9d509da4a391b617e00d51fa4c41
@@ -262,6 +262,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
 
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/serialization-vectors.git" serialization-vectors "5bfb928910b0"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-commp-utils.git" go-commp-utils "b88f7a96a434e229e8466f0c0c9eeaeafd79b3d4"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-fil-markets.git" go-fil-markets "v1.1.9"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/go-padreader.git" go-padreader "ed5fae088b20"
     source $CLONE_AND_CHECKOUT "https://github.com/filecoin-project/phase2.git" phase2 "v0.11.0"

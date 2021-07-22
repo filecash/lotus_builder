@@ -15,7 +15,7 @@ require (
 	github.com/filecoin-project/go-statestore v0.1.0
 	github.com/filecoin-project/go-storedcounter v0.0.0-20200421200003-1c99c62e8a5b
 	github.com/filecoin-project/specs-actors v0.9.13
-	github.com/filecoin-project/specs-actors/v2 v2.3.2
+	github.com/filecoin-project/specs-actors/v2 v2.3.4
 	github.com/hannahhoward/cbor-gen-for v0.0.0-20200817222906-ea96cece81f1
 	github.com/hannahhoward/go-pubsub v0.0.0-20200423002714-8d62886cc36e
 	github.com/ipfs/go-block-format v0.0.2
@@ -52,4 +52,10 @@ replace github.com/filecoin-project/filecoin-ffi => ../filecoin-ffi
 
 replace github.com/filecoin-project/specs-actors => ../specs-actors-v0.9.13
 
+replace github.com/filecoin-project/specs-actors/v2 => ../specs-actors-v2.3.4
+
+replace github.com/filecoin-project/specs-actors/v3 => ../specs-actors-v3.0.3
+
 replace github.com/filecoin-project/go-state-types => ../go-state-types
+
+replace github.com/filecoin-project/go-commp-utils => ../go-commp-utils
