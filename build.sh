@@ -241,7 +241,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
     # filecash/v1.2.2 26b53042c1689d4c0ccb163a44ab0ac60a192ef4
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "26b53042c1689d4c0ccb163a44ab0ac60a192ef4"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "fa45a463ebf267751857ac99c89fe5553a9315d4"
     # filecash/v1.2.2 37caaecccf5ab6cb6bd595f97b96ad12fae4db3b
     # filecash/v1.5.0 5d55341d9ad26c3cd8e8887d6d066c26365216e8
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
