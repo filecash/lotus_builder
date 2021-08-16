@@ -37,4 +37,4 @@ rand_xorshift = "0.2.0"
 [features]
 default = ["asm", "sha512_avx"]
 asm = ["sha2-asm"]
-sha512_avx2 = []
+sha512_avx = []
