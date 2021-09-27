@@ -69,6 +69,8 @@ main() {
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
                     all 2k
+                elif [ "${1}" = "calibnet" ]; then
+                    all calibnet
                 elif [ "${1}" = "all" ]; then
                     all_full
                 elif [ "${1}" = "webapi" ]; then
@@ -87,6 +89,8 @@ main() {
             if [[ -n "${1}" ]]; then
                 if [ "${1}" = "2k" ]; then
                     build 2k
+                elif [ "${1}" = "calibnet" ]; then
+                    build calibnet
                 elif [ "${1}" = "all" ]; then
                     build_full
                 elif [ "${1}" = "webapi" ]; then
@@ -138,7 +142,7 @@ main() {
 }
 
 Usage() {
-    echo "Usage:"${cmd}" options { -a,--all(2k,all,webapi) | -b,--build(2k,all,webapi) | -c,--config | --clone | -l,--clear | -t,--test | -h }"
+    echo "Usage:"${cmd}" options { -a,--all(2k,calibnet,all,webapi) | -b,--build(2k,calibnet,all,webapi) | -c,--config | --clone | -l,--clear | -t,--test | -h }"
 }
 
 all() {
@@ -223,11 +227,11 @@ clear() {
 git_clone() {
 
     # filecash/v1.5.0 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "6837b78f38d167a7660c7aa5de518c3b79cee77b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "3d586ed3c601b8ba35b4a4b07ffb45bc521cc2a9"
     # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "bc9f6b2d3c787d74ee30257aad8429d95daf06b9"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "a6a8552f825e5d92b1063d41b3b02fc69e976206"
     # filecash 3feeceb0cf6c8e18fe64bc68cf755edcbf99f411
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "8232db5b76216c5c1c4c7f5f4f8b181d6676ac34"
 
@@ -240,9 +244,8 @@ git_clone() {
     # filecash/0.21.0 17b0ac21d13e85f76e474e45db24d95181265781
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
-    # filecash/v1.2.2 eb4d1a08d4c38eff9e44ad7e901d36e8221e3cec
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "eb4d1a08d4c38eff9e44ad7e901d36e8221e3cec"
-    # filecash/v1.2.2 37caaecccf5ab6cb6bd595f97b96ad12fae4db3b
+    # filecash/v1.5.0 fa45a463ebf267751857ac99c89fe5553a9315d4
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "b7ac0c1b02e80abef919e4b8c82dbc5620e149c1"
     # filecash/v1.5.0 5d55341d9ad26c3cd8e8887d6d066c26365216e8
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
     # filecash/v1.2.2 753c436bcd446cee8a1672cd8603924cbfa5f3ea
