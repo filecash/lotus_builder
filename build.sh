@@ -223,7 +223,7 @@ clear() {
 git_clone() {
 
     # filecash/v1.5.0 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "6837b78f38d167a7660c7aa5de518c3b79cee77b"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "71a86682ea9cf62fdd6ba8252e720cadf0498a01"
     # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
@@ -241,7 +241,7 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
     # filecash/v1.2.2 eb4d1a08d4c38eff9e44ad7e901d36e8221e3cec
-source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "b7ac0c1b02e80abef919e4b8c82dbc5620e149c1"
+source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "5a52348d94ee45f1c2fbc18cb20e29fc06e089c3"
     # filecash/v1.2.2 37caaecccf5ab6cb6bd595f97b96ad12fae4db3b
     # filecash/v1.5.0 5d55341d9ad26c3cd8e8887d6d066c26365216e8
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
