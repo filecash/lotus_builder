@@ -227,7 +227,7 @@ clear() {
 git_clone() {
 
     # filecash/v1.5.0 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
-    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "3d586ed3c601b8ba35b4a4b07ffb45bc521cc2a9"
+    source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "71a86682ea9cf62fdd6ba8252e720cadf0498a01"
     # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
     # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
