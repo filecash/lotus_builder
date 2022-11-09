@@ -226,11 +226,11 @@ clear() {
 
 git_clone() {
 
-    # filecash/v1.5.0 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
+    # filecash/v1.5.1 0dc8195aea3f49b10f2f51eb0d4b039fa6375924
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/lotus.git" lotus "52824c17c78cef9911004525925e0ef438090fca"
-    # filecash/v1.5.0 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
+    # filecash/v1.5.1 1b26a73d93a5cfa7096b02c1bfdbf109e790547e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-storage.git" specs-storage "1b26a73d93a5cfa7096b02c1bfdbf109e790547e"
-    # filecash/v1.5.0 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
+    # filecash/v1.5.1 bc9f6b2d3c787d74ee30257aad8429d95daf06b9
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-ffi.git" filecoin-ffi "a6a8552f825e5d92b1063d41b3b02fc69e976206"
     # filecash 3feeceb0cf6c8e18fe64bc68cf755edcbf99f411
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/filecoin-webapi.git" filecoin-webapi "8232db5b76216c5c1c4c7f5f4f8b181d6676ac34"
@@ -239,27 +239,27 @@ git_clone() {
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-filecoin-proofs-api.git" rust-filecoin-proofs-api "88d3d9ff89e035c0b1c3057ecc3e53a82256d785"
     # filecash/v1.2.2 4411241ffa8d2aabf75affd0f5ec663996bf1674
     # filecash/v1.2.2-sha512-avx 0eaca46a636700bc03f7d4393ff819d6957fe68b
-    # filecash/v1.5.0 71a32a4dcd1c18075772307ce041c5295ae845fb
+    # filecash/v1.5.1 71a32a4dcd1c18075772307ce041c5295ae845fb
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/rust-fil-proofs.git" rust-fil-proofs "71a32a4dcd1c18075772307ce041c5295ae845fb"
     # filecash/0.21.0 17b0ac21d13e85f76e474e45db24d95181265781
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/merkletree.git" merkletree "filecash/0.21.0"
 
-    # filecash/v1.5.0 fa45a463ebf267751857ac99c89fe5553a9315d4
+    # filecash/v1.5.1 fa45a463ebf267751857ac99c89fe5553a9315d4
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/bellman.git" bellperson "fa45a463ebf267751857ac99c89fe5553a9315d4"
-    # filecash/v1.5.0 5d55341d9ad26c3cd8e8887d6d066c26365216e8
+    # filecash/v1.5.1 5d55341d9ad26c3cd8e8887d6d066c26365216e8
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune.git" neptune "5d55341d9ad26c3cd8e8887d6d066c26365216e8"
     # filecash/v1.2.2 753c436bcd446cee8a1672cd8603924cbfa5f3ea
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/neptune-triton.git" neptune-triton "753c436bcd446cee8a1672cd8603924cbfa5f3ea"
 
-    # filecash/v1.5.0-0.9.13 a408ccc71bfb085af6e14549d10fed8c7511eb26
+    # filecash/v1.5.1-0.9.13 a408ccc71bfb085af6e14549d10fed8c7511eb26
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v0.9.13 "a408ccc71bfb085af6e14549d10fed8c7511eb26"
-    # filecash/v1.5.0-2.3.4 479fda7cf1af12100dc8c089b53de5fc25a3f54e
+    # filecash/v1.5.1-2.3.4 479fda7cf1af12100dc8c089b53de5fc25a3f54e
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v2.3.4 "479fda7cf1af12100dc8c089b53de5fc25a3f54e"
-    # filecash/v1.5.0-3.0.3 94575708c87ea20c0376be56d10f630efc8c1485
+    # filecash/v1.5.1-3.0.3 94575708c87ea20c0376be56d10f630efc8c1485
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/specs-actors.git" specs-actors-v3.0.3 "94575708c87ea20c0376be56d10f630efc8c1485"
     # filecash/v1.2.2 978a8faec08408e83e5a5c0350e39566ac0a9bce
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-paramfetch.git" go-paramfetch "978a8faec08408e83e5a5c0350e39566ac0a9bce"
-    # filecash/v1.5.0 83265abb312f9d509da4a391b617e00d51fa4c41
+    # filecash/v1.5.1 83265abb312f9d509da4a391b617e00d51fa4c41
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/go-state-types.git" go-state-types "83265abb312f9d509da4a391b617e00d51fa4c41"
     # filecash/v1.2.2 7fb89143805afcf53e1ff14b94615eedfa839e68
     source $CLONE_AND_CHECKOUT "https://github.com/filecash/test-vectors.git" test-vectors "7fb89143805afcf53e1ff14b94615eedfa839e68"
